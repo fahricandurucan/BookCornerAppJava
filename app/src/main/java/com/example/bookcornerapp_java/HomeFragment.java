@@ -9,8 +9,17 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.GridLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.example.bookcornerapp_java.model.Book;
+import com.example.bookcornerapp_java.model.FavoriteBook;
+import com.example.bookcornerapp_java.model.FavoriteBookManager;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -74,15 +83,22 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        CardView cardView1 = view.findViewById(R.id.cardview1);
+        // Kitap verilerini oluştur
+        List<Book> bookList = createBookList();
 
-        cardView1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent=new Intent(getActivity(),ProductDetailActivity.class);
-                startActivity(intent);
-            }
-        });
+        // Kitap kartlarını oluştur ve layouta ekle
+        GridLayout bookContainer = view.findViewById(R.id.bookContainer);
+        createBookCards(bookList, bookContainer);
+
+//        CardView cardView1 = view.findViewById(R.id.cardview);
+//
+//        cardView1.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent=new Intent(getActivity(),ProductDetailActivity.class);
+//                startActivity(intent);
+//            }
+//        });
 
         TextView txtSeeAll = view.findViewById(R.id.txtSeeAll);
 
@@ -95,5 +111,105 @@ public class HomeFragment extends Fragment {
         });
 
         return view;
+    }
+
+
+    // Örnek kitap verileri oluştur
+    private List<Book> createBookList() {
+        List<Book> bookList = new ArrayList<>();
+
+        bookList.add(new Book(1,"War and Peace", 15.99,"xxxx", "Publisher 1", "Description 1", R.drawable.item3));
+        bookList.add(new Book(2,"The Little Prince", 10.99, "xxxx","Publisher 2", "Description 2", R.drawable.book1));
+        bookList.add(new Book(3,"Animal Farm", 12.49, "xxxx","Publisher 3", "Description 3", R.drawable.item7));
+        bookList.add(new Book(4,"1984", 9.99, "xxxx","Publisher 4", "Description 4", R.drawable.item6));
+
+        return bookList;
+    }
+    // Kitap kartlarını dinamik olarak oluştur ve layouta ekle
+    private void createBookCards(List<Book> bookList, GridLayout  bookContainer) {
+
+        for (Book book : bookList) {
+            View bookCard = getLayoutInflater().inflate(R.layout.book_card, null);
+
+            ImageView bookImage = bookCard.findViewById(R.id.bookImage);
+            TextView bookName = bookCard.findViewById(R.id.bookName);
+            TextView bookPrice = bookCard.findViewById(R.id.bookPrice);
+            CardView cardView = bookCard.findViewById(R.id.cardView);
+            ImageView favoriteIcon = bookCard.findViewById(R.id.favoriteIcon);  // Favori ikonu
+            // Favori ikonuna tıklama durumu
+            // Favori ikonuna tıklama durumu
+            favoriteIcon.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    handleFavoriteClick(book, favoriteIcon); // Favori ikonunu parametre olarak gönder
+                }
+
+            });
+
+
+            bookImage.setImageResource(book.getImage());
+            bookName.setText(book.getName());
+            bookPrice.setText("$" + book.getPrice());
+
+            // Kitap kartına tıklandığında detay sayfasına geçiş yap
+            cardView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // Kitap bilgilerini intent ile ProductDetailActivity'e aktar
+                    Intent intent = new Intent(getActivity(), ProductDetailActivity.class);
+                    intent.putExtra("selected_book", book);
+                    startActivity(intent);
+                }
+            });
+
+            // GridLayout.LayoutParams ekleyerek iki sütunlu düzenleme yapalım
+            GridLayout.LayoutParams params = new GridLayout.LayoutParams();
+            params.width = GridLayout.LayoutParams.WRAP_CONTENT;
+            params.height = GridLayout.LayoutParams.WRAP_CONTENT;
+            params.rowSpec = GridLayout.spec(GridLayout.UNDEFINED, GridLayout.FILL, 1f); // Bir satır oluştur
+            params.columnSpec = GridLayout.spec(GridLayout.UNDEFINED, GridLayout.FILL, 1f); // İki sütunu eşit olarak doldur
+
+            bookCard.setLayoutParams(params);
+
+            bookContainer.addView(bookCard);
+        }
+    }
+
+    // Favori ikonuna tıklama durumu
+    private void handleFavoriteClick(Book book, ImageView favoriteIcon) {
+        int bookId = book.getId();
+
+        if (FavoriteBookManager.isBookFavorited(bookId)) {
+            // Eğer kitap favorilerde ise, favorilerden çıkar
+            FavoriteBookManager.removeFavoriteBook(findFavoriteBookById(bookId));
+            updateFavoriteIcon(favoriteIcon, false);
+        } else {
+            // Eğer kitap favorilerde değilse, favorilere ekle
+            FavoriteBook favoriteBook = createFavoriteBook(book);
+            FavoriteBookManager.addFavoriteBook(favoriteBook);
+            updateFavoriteIcon(favoriteIcon, true);
+        }
+    }
+
+    // Kitabın favori durumunu kontrol etmek için
+    private FavoriteBook findFavoriteBookById(int bookId) {
+        for (FavoriteBook favoriteBook : FavoriteBookManager.getFavoriteBooks()) {
+            System.out.print(favoriteBook.getName());
+            if (favoriteBook.getId() == bookId) {
+                return favoriteBook;
+            }
+        }
+        return null;
+    }
+
+    // Favori ikonunu güncellemek için
+    private void updateFavoriteIcon(ImageView favoriteIcon, boolean isFavorited) {
+        // Favori ikonunun rengini güncelle (favoriye eklenmişse, rengi değiştir)
+        favoriteIcon.setImageResource(isFavorited ? R.drawable.favorite : R.drawable.unfavorite);
+    }
+
+    // Favori kitap oluşturmak için
+    private FavoriteBook createFavoriteBook(Book book) {
+        return new FavoriteBook(book.getId(), book.getName(), book.getPrice(), book.getPublisher(), book.getDescription(), book.getImage());
     }
 }

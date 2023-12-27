@@ -3,10 +3,17 @@ package com.example.bookcornerapp_java;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.example.bookcornerapp_java.model.FavoriteBook;
+import com.example.bookcornerapp_java.model.FavoriteBookManager;
+
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -14,6 +21,9 @@ import android.view.ViewGroup;
  * create an instance of this fragment.
  */
 public class FavoriteFragment extends Fragment {
+    private RecyclerView recyclerView;
+    private FavoriteAdapter favoriteAdapter; // Favori kitapları göstermek için uygun bir adapter kullanın
+
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -58,7 +68,20 @@ public class FavoriteFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_favorite, container, false);
+        View view = inflater.inflate(R.layout.fragment_favorite, container, false);
+
+        recyclerView = view.findViewById(R.id.recyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        // Favori kitapları içeren bir liste oluşturun (örnek olarak)
+        List<FavoriteBook> favoriteBookList = FavoriteBookManager.getFavoriteBooks();
+
+        // Favori kitapları göstermek için uygun bir adapter oluşturun
+        favoriteAdapter = new FavoriteAdapter(favoriteBookList);
+
+        // RecyclerView'e adapter'i ayarlayın
+        recyclerView.setAdapter(favoriteAdapter);
+
+        return view;
     }
 }

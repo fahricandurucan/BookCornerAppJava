@@ -8,53 +8,53 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.bookcornerapp_java.model.Category;
+
+import java.util.List;
+
 public class CategoryAdapter extends BaseAdapter {
     Context context;
-    String[] categoryName;
-    int[] image;
-
+    List<Category> categoryList;
     LayoutInflater inflater;
 
-    public CategoryAdapter(Context context, String[] categoryName, int[] image) {
+    public CategoryAdapter(Context context, List<Category> categoryList) {
         this.context = context;
-        this.categoryName = categoryName;
-        this.image = image;
+        this.categoryList = categoryList;
     }
 
     @Override
     public int getCount() {
-        return categoryName.length;
+        return categoryList.size();
     }
 
     @Override
-    public Object getItem(int i) {
-        return categoryName[i];
+    public Object getItem(int position) {
+        return categoryList.get(position);
     }
 
     @Override
-    public long getItemId(int i) {
-        return 0;
+    public long getItemId(int position) {
+        return position;
     }
 
     @Override
-    public View getView(int i, View view, ViewGroup viewGroup) {
-        if(inflater == null){
+    public View getView(int position, View convertView, ViewGroup parent) {
+        if (inflater == null) {
             inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         }
 
-        if(view == null){
-            view = inflater.inflate(R.layout.grid_item,null);
-
+        if (convertView == null) {
+            convertView = inflater.inflate(R.layout.grid_item, null);
         }
 
-        ImageView imageView = view.findViewById(R.id.imageProduct);
-        TextView textView = view.findViewById(R.id.productName);
+        ImageView imageView = convertView.findViewById(R.id.imageProduct);
+        TextView textView = convertView.findViewById(R.id.productName);
 
-        imageView.setImageResource(image[i]);
-        textView.setText(categoryName[i])   ;
+        Category category = categoryList.get(position);
 
+        imageView.setImageResource(category.getImage());
+        textView.setText(category.getName());
 
-
-        return view;
+        return convertView;
     }
 }
