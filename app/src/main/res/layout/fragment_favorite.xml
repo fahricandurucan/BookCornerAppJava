@@ -7,7 +7,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+<<<<<<< HEAD
     android:background="@color/white">
+=======
+    tools:context=".FavoriteActivity">
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white">
+
+>>>>>>> 74c5d7829019c677c11f5e654342d6b4ade30fda
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
