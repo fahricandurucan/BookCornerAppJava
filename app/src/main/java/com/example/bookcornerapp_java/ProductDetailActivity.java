@@ -58,6 +58,14 @@ public class ProductDetailActivity extends AppCompatActivity {
                 }
             });
 
+            ImageView backButton =  findViewById(R.id.backBtn);
+            backButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    onBackPressed();
+                }
+            });
+
             // Diğer bilgileri de aynı şekilde set edebilirsiniz.
         }
 

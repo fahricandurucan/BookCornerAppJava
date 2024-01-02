@@ -6,6 +6,7 @@ import android.os.Bundle;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -168,7 +169,10 @@ public class HomeFragment extends Fragment {
             params.height = GridLayout.LayoutParams.WRAP_CONTENT;
             params.rowSpec = GridLayout.spec(GridLayout.UNDEFINED, GridLayout.FILL, 1f); // Bir satır oluştur
             params.columnSpec = GridLayout.spec(GridLayout.UNDEFINED, GridLayout.FILL, 1f); // İki sütunu eşit olarak doldur
-
+            // Margin değerlerini belirle
+            int marginInDp = 16; // İstediğiniz margin değeri
+            int marginInPx = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, marginInDp, getResources().getDisplayMetrics());
+            params.setMargins(marginInPx, marginInPx, marginInPx, marginInPx);
             bookCard.setLayoutParams(params);
 
             bookContainer.addView(bookCard);

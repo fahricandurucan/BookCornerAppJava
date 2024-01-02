@@ -2,31 +2,33 @@
 
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/cardView"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_margin="8dp"
-    app:cardCornerRadius="16dp">
+    android:layout_margin="16dp"
+    app:cardCornerRadius="16dp"
+    tools:layout_margin="16dp">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_margin="8dp">
+        android:layout_margin="8dp"
+        android:orientation="vertical">
 
         <!-- Favori ikonu -->
         <ImageView
             android:id="@+id/favoriteIcon"
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:src="@drawable/unfavorite"
-            android:layout_gravity="end"/>
+            android:layout_gravity="end"
+            android:src="@drawable/unfavorite" />
 
         <ImageView
             android:id="@+id/bookImage"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:scaleType="centerCrop"/>
+            android:scaleType="centerCrop" />
 
         <TextView
             android:id="@+id/bookName"
@@ -34,14 +36,14 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:textSize="18sp"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/bookPrice"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:textSize="16sp"/>
+            android:textSize="16sp" />
 
     </LinearLayout>
 </androidx.cardview.widget.CardView>
