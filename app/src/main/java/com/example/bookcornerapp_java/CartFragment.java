@@ -1,12 +1,32 @@
 package com.example.bookcornerapp_java;
 
+import static android.content.Context.MODE_PRIVATE;
+
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.example.bookcornerapp_java.model.Book;
+import com.example.bookcornerapp_java.sharedPreferences.SharedPreferencesHelper;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -24,6 +44,9 @@ public class CartFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
+    private RecyclerView recyclerView;
+    private CartAdapter cartAdapter;
+    private TextView totalAmountTextView;
     public CartFragment() {
         // Required empty public constructor
     }
@@ -59,6 +82,85 @@ public class CartFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_cart, container, false);
+        View view = inflater.inflate(R.layout.fragment_cart, container, false);
+        LinearLayout linearLayout2 = view.findViewById(R.id.linearLayout2);
+        TextView emptyCartTextView = view.findViewById(R.id.emptyTextView);
+        // SharedPreferences'ten verileri al
+        List<Book> cartItems = SharedPreferencesHelper.getCartItems(requireContext());
+        // RecyclerView'ı ayarla
+        recyclerView = view.findViewById(R.id.view);
+        recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
+
+        // Sepet boşsa uygun bir mesaj göster
+        if (cartItems == null || cartItems.isEmpty()) {
+            emptyCartTextView.setText("Sepetiniz boş!");
+            emptyCartTextView.setGravity(Gravity.CENTER);
+            emptyCartTextView.setVisibility(View.VISIBLE);
+            recyclerView.setVisibility(View.GONE);
+            linearLayout2.setVisibility(View.GONE);
+            Log.e("CartActivity", "Cart items are empty or null");
+        } else {
+            emptyCartTextView.setVisibility(View.GONE);
+            // Sepet doluysa normal tasarımı göster
+            cartAdapter = new CartAdapter(cartItems);
+            recyclerView.setAdapter(cartAdapter);
+        }
+
+        totalAmountTextView = view.findViewById(R.id.totalAmountTextView);
+        updateTotalAmount();
+
+
+        Button orderNowBtn = (Button) view.findViewById(R.id.orderNowBtn);
+
+        // Order Now butonuna tıklama işlemini ekle
+        orderNowBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Sipariş alındı mesajını göster
+                Toast.makeText(requireContext(), "Siparişiniz alındı!", Toast.LENGTH_SHORT).show();
+
+                // Sepet verilerini temizle
+                clearCart();
+                recyclerView.setAdapter(cartAdapter);
+            }
+        });
+
+
+        return view;
+    }
+
+    private void displayOrderSummary() {
+        // SharedPreferences kullanarak sepete eklenen ürünleri oku
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("Cart", MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = sharedPreferences.getString("cart", null);
+
+        if (json != null) {
+            Type type = new TypeToken<List<Book>>() {}.getType();
+            List<Book> cart = gson.fromJson(json, type);
+            Log.d("Listemiz",cart.toString());
+            // cart listesini kullanarak sipariş özetini göster
+            // Örneğin, bir RecyclerView kullanabilirsiniz.
+        }
+    }
+
+    private void updateTotalAmount() {
+        // Sepetteki ürünlerin fiyatlarını al
+        List<Book> cartItems = SharedPreferencesHelper.getCartItems(requireContext());
+
+        // Toplam tutarı hesapla
+        double totalAmount = 0.0;
+        for (Book book : cartItems) {
+            totalAmount += book.getPrice();
+        }
+
+        // Toplam tutarı ekrana yazdır
+        totalAmountTextView.setText(totalAmount + "$");
+    }
+
+    private void clearCart() {
+        // Sepet verilerini temizle (SharedPreferences'den)
+        SharedPreferencesHelper.clearCart(requireContext());
+
     }
 }

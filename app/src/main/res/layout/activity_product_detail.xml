@@ -222,7 +222,7 @@ The book includes some criticism from a child’s eye on the strangeness of the 
     </ScrollView>
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/button"
+        android:id="@+id/addToCartBtn"
         style="@android:style/Widget.Button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
