@@ -52,8 +52,8 @@
 
                     <ImageView
                         android:id="@+id/imageView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
                         android:layout_marginEnd="20dp"
                         android:src="@drawable/bell"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -310,7 +310,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="16dp"
                     android:text="See all"
-                    android:textColor="@color/green" />
+                    android:textColor="@color/green"
+                    android:textStyle="bold|italic" />
 
             </LinearLayout>
 
@@ -318,7 +319,6 @@
                 android:id="@+id/bookContainer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/grey"
                 android:columnCount="2"
                 android:orientation="horizontal"
                 android:padding="8dp"></GridLayout>
@@ -406,7 +406,6 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="75dp"
-                android:background="@color/grey"
                 android:layout_weight="50"
                 android:orientation="horizontal"></LinearLayout>
 

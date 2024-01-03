@@ -66,7 +66,6 @@ public class ProductDetailActivity extends AppCompatActivity {
                 }
             });
 
-            // Diğer bilgileri de aynı şekilde set edebilirsiniz.
         }
 
     }
