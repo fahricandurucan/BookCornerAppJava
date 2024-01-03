@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -83,8 +84,12 @@ public class CartFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_cart, container, false);
+        View emptyView = inflater.inflate(R.layout.fragment_empty,container,false);
+
         LinearLayout linearLayout2 = view.findViewById(R.id.linearLayout2);
-        TextView emptyCartTextView = view.findViewById(R.id.emptyTextView);
+        TextView emptyCartTextView = emptyView.findViewById(R.id.textViewEmpty);
+        ImageView emptyCartImage = emptyView.findViewById(R.id.emptyCartImage);
+
         // SharedPreferences'ten verileri al
         List<Book> cartItems = SharedPreferencesHelper.getCartItems(requireContext());
         // RecyclerView'ı ayarla
@@ -93,44 +98,48 @@ public class CartFragment extends Fragment {
 
         // Sepet boşsa uygun bir mesaj göster
         if (cartItems == null || cartItems.isEmpty()) {
-            emptyCartTextView.setText("Sepetiniz boş!");
+            emptyCartTextView.setText("Ürün sepetiniz boş!");
+            emptyCartImage.setImageResource(R.drawable.empty_cart);
             emptyCartTextView.setGravity(Gravity.CENTER);
             emptyCartTextView.setVisibility(View.VISIBLE);
-            recyclerView.setVisibility(View.GONE);
-            linearLayout2.setVisibility(View.GONE);
+//            recyclerView.setVisibility(View.GONE);
+//            linearLayout2.setVisibility(View.GONE);
             Log.e("CartActivity", "Cart items are empty or null");
+            return emptyView;
         } else {
-            emptyCartTextView.setVisibility(View.GONE);
             // Sepet doluysa normal tasarımı göster
             cartAdapter = new CartAdapter(cartItems);
             recyclerView.setAdapter(cartAdapter);
+
+
+            totalAmountTextView = view.findViewById(R.id.totalAmountTextView);
+            updateTotalAmount();
+
+
+            Button orderNowBtn = (Button) view.findViewById(R.id.orderNowBtn);
+
+            // Order Now butonuna tıklama işlemini ekle
+            orderNowBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    // Sipariş alındı mesajını göster
+                    Toast.makeText(requireContext(), "Siparişiniz alındı!", Toast.LENGTH_SHORT).show();
+
+                    // Sepet verilerini temizle
+                    clearCart();
+                    recyclerView.setAdapter(cartAdapter);
+                }
+            });
+
+
+            return view;
         }
 
-        totalAmountTextView = view.findViewById(R.id.totalAmountTextView);
-        updateTotalAmount();
 
-
-        Button orderNowBtn = (Button) view.findViewById(R.id.orderNowBtn);
-
-        // Order Now butonuna tıklama işlemini ekle
-        orderNowBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Sipariş alındı mesajını göster
-                Toast.makeText(requireContext(), "Siparişiniz alındı!", Toast.LENGTH_SHORT).show();
-
-                // Sepet verilerini temizle
-                clearCart();
-                recyclerView.setAdapter(cartAdapter);
-            }
-        });
-
-
-        return view;
     }
 
     private void displayOrderSummary() {
-        // SharedPreferences kullanarak sepete eklenen ürünleri oku
+        // SharedPreferences kullanarak sepete eklenen ürünleri okuyorum ama burası şimdilik iptal
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("Cart", MODE_PRIVATE);
         Gson gson = new Gson();
         String json = sharedPreferences.getString("cart", null);
@@ -145,7 +154,7 @@ public class CartFragment extends Fragment {
     }
 
     private void updateTotalAmount() {
-        // Sepetteki ürünlerin fiyatlarını al
+        // Sepetteki ürünlerin fiyatlarını alıyorum
         List<Book> cartItems = SharedPreferencesHelper.getCartItems(requireContext());
 
         // Toplam tutarı hesapla
@@ -154,7 +163,7 @@ public class CartFragment extends Fragment {
             totalAmount += book.getPrice();
         }
 
-        // Toplam tutarı ekrana yazdır
+        // Toplam tutarı ekrana yazdırma
         totalAmountTextView.setText(totalAmount + "$");
     }
 

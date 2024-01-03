@@ -6,9 +6,14 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.example.bookcornerapp_java.model.FavoriteBook;
 import com.example.bookcornerapp_java.model.FavoriteBookManager;
@@ -69,19 +74,31 @@ public class FavoriteFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_favorite, container, false);
+        View emptyView = inflater.inflate(R.layout.fragment_empty,container,false);
 
-        recyclerView = view.findViewById(R.id.recyclerView);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-
+        TextView emptyCartTextView = emptyView.findViewById(R.id.textViewEmpty);
+        ImageView emptyCartImage = emptyView.findViewById(R.id.emptyCartImage);
         // Favori kitapları içeren bir liste oluşturun (örnek olarak)
         List<FavoriteBook> favoriteBookList = FavoriteBookManager.getFavoriteBooks();
+        // Sepet boşsa uygun bir mesaj göster
+        if (favoriteBookList == null || favoriteBookList.isEmpty()) {
+            emptyCartTextView.setText("Henüz favori kitabınız bulunmamaktadır!");
+            emptyCartImage.setImageResource(R.drawable.empty_favorite);
+            Log.e("FavoriActivity", "Favori items are empty or null");
+            return emptyView;
+        } else {
+            recyclerView = view.findViewById(R.id.recyclerView);
+            recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+            // Favori kitapları göstermek için uygun bir adapter oluşturun
+            favoriteAdapter = new FavoriteAdapter(favoriteBookList);
 
-        // Favori kitapları göstermek için uygun bir adapter oluşturun
-        favoriteAdapter = new FavoriteAdapter(favoriteBookList);
+            // RecyclerView'e adapter'i ayarlayın
+            recyclerView.setAdapter(favoriteAdapter);
 
-        // RecyclerView'e adapter'i ayarlayın
-        recyclerView.setAdapter(favoriteAdapter);
+            return view;
+        }
 
-        return view;
+
+
     }
 }
