@@ -3,7 +3,7 @@ package com.example.bookcornerapp_java.model;
 import java.io.Serializable;
 
 public class Book implements Serializable {
-    int id;
+    String id;
     String name;
     double price;
     String author;
@@ -12,8 +12,10 @@ public class Book implements Serializable {
     int image;
 
 
-
-    public Book(int id, String name, double price, String author, String publisher, String description, int image) {
+    public Book() {
+        // Boş kurucu metod
+    }
+    public Book(String id, String name, double price, String author, String publisher, String description, int image) {
         this.id = id;
         this.name = name;
         this.price = price;
@@ -22,7 +24,7 @@ public class Book implements Serializable {
         this.description = description;
         this.image = image;
     }
-    public int getId() {
+    public String getId() {
         return id;
     }
     public String getName() {
@@ -47,5 +49,9 @@ public class Book implements Serializable {
 
     public int getImage() {
         return image;
+    }
+
+    public void setId(String documentId) {
+        id = documentId;
     }
 }

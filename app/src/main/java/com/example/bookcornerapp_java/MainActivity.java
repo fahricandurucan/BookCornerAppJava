@@ -74,11 +74,14 @@ import androidx.fragment.app.FragmentTransaction;
 import android.os.Bundle;
 
 import com.example.bookcornerapp_java.databinding.ActivityMainBinding;
+import com.example.bookcornerapp_java.model.Book;
+import com.example.bookcornerapp_java.services.FirestoreManager;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class MainActivity extends AppCompatActivity {
 
     ActivityMainBinding binding;
-
+    FirebaseFirestore firestore;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

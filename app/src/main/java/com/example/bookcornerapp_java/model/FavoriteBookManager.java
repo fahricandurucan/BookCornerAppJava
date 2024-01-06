@@ -18,7 +18,7 @@ public class FavoriteBookManager {
         favoriteBooks.remove(favoriteBook);
     }
 
-    public static boolean isBookFavorited(int bookId) {
+    public static boolean isBookFavorited(String bookId) {
         for (FavoriteBook favoriteBook : favoriteBooks) {
             if (favoriteBook.getId() == bookId) {
                 return true;

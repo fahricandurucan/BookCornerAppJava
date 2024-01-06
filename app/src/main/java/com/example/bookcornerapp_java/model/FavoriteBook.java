@@ -1,14 +1,14 @@
 package com.example.bookcornerapp_java.model;
 
 public class FavoriteBook {
-    private int id;
+    private String id;
     private String name;
     private double price;
     private String publisher;
     private String description;
     private int image;
 
-    public FavoriteBook(int id, String name, double price, String publisher, String description, int image) {
+    public FavoriteBook(String id, String name, double price, String publisher, String description, int image) {
         this.id = id;
         this.name = name;
         this.price = price;
@@ -17,7 +17,7 @@ public class FavoriteBook {
         this.image = image;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 

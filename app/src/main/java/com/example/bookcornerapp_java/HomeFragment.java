@@ -6,6 +6,7 @@ import android.os.Bundle;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +19,7 @@ import android.widget.TextView;
 import com.example.bookcornerapp_java.model.Book;
 import com.example.bookcornerapp_java.model.FavoriteBook;
 import com.example.bookcornerapp_java.model.FavoriteBookManager;
+import com.example.bookcornerapp_java.services.FirestoreManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +39,7 @@ public class HomeFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private FirestoreManager firestoreManager;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -73,6 +76,9 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                       Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
+        // FirestoreManager sınıfını oluşturun
+        firestoreManager = new FirestoreManager();
+
 
         ImageView navigateCategories = view.findViewById(R.id.categories);
 
@@ -84,12 +90,26 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        // Kitap verilerini oluştur
-        List<Book> bookList = createBookList();
+        firestoreManager.getBooks(new OnBooksLoadedListener() {
+            @Override
+            public void onBooksLoaded(List<Book> bookList) {
+                GridLayout bookContainer = view.findViewById(R.id.bookContainer);
+                createBookCards(bookList, bookContainer);
+            }
 
-        // Kitap kartlarını oluştur ve layouta ekle
-        GridLayout bookContainer = view.findViewById(R.id.bookContainer);
-        createBookCards(bookList, bookContainer);
+            @Override
+            public void onBooksLoadFailed(String errorMessage) {
+                // Veri çekme işleminde hata oluştuğunda yapılacak işlemler
+                Log.e("HomeFragment", errorMessage);
+            }
+        });
+
+//        // Kitap verilerini oluştur
+//        List<Book> bookList = firestoreManager.getBooks();
+//        Log.e("weşlkdjewş","wkeljmklwe");
+//        // Kitap kartlarını oluştur ve layouta ekle
+//        GridLayout bookContainer = view.findViewById(R.id.bookContainer);
+//        createBookCards(bookList, bookContainer);
 
 //        CardView cardView1 = view.findViewById(R.id.cardview);
 //
@@ -111,25 +131,46 @@ public class HomeFragment extends Fragment {
             }
         });
 
+
+        // FirestoreManager sınıfını oluşturun
+        FirestoreManager firestoreManager = new FirestoreManager();
+
+
+        // Eklemek istediğiniz kitap nesnesini oluşturun
+        Book newBook = new Book("4","1984", 9.99, "xxxx","Publisher 4", "Description 4", R.drawable.item6);
+
+        ImageView bell_icon = view.findViewById(R.id.bell_icon);
+
+        bell_icon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Firestore'a kitabı ekleyin
+                firestoreManager.addBook(newBook);
+            }
+        });
+
         return view;
     }
 
 
+
     // Örnek kitap verileri oluştur
-    private List<Book> createBookList() {
-        List<Book> bookList = new ArrayList<>();
-
-        bookList.add(new Book(1,"War and Peace", 15.99,"xxxx", "Publisher 1", "Description 1", R.drawable.item3));
-        bookList.add(new Book(2,"The Little Prince", 10.99, "xxxx","Publisher 2", "Description 2", R.drawable.book1));
-        bookList.add(new Book(3,"Animal Farm", 12.49, "xxxx","Publisher 3", "Description 3", R.drawable.item7));
-        bookList.add(new Book(4,"1984", 9.99, "xxxx","Publisher 4", "Description 4", R.drawable.item6));
-
-        return bookList;
-    }
+//    private List<Book> createBookList() {
+//        List<Book> bookList = new ArrayList<>();
+//
+//        bookList.add(new Book("1","War and Peace", 15.99,"xxxx", "Publisher 1", "Description 1", R.drawable.item3));
+//        bookList.add(new Book("2","The Little Prince", 10.99, "xxxx","Publisher 2", "Description 2", R.drawable.book1));
+//        bookList.add(new Book("3","Animal Farm", 12.49, "xxxx","Publisher 3", "Description 3", R.drawable.item7));
+//        bookList.add(new Book("4","1984", 9.99, "xxxx","Publisher 4", "Description 4", R.drawable.item6));
+//
+//        return bookList;
+//    }
     // Kitap kartlarını dinamik olarak oluştur ve layouta ekle
     private void createBookCards(List<Book> bookList, GridLayout  bookContainer) {
+        Log.e("FONKSŞYON", String.valueOf(bookList.size()));
 
         for (Book book : bookList) {
+            Log.e("FONKSŞYON2",book.getName());
             View bookCard = getLayoutInflater().inflate(R.layout.book_card, null);
 
             ImageView bookImage = bookCard.findViewById(R.id.bookImage);
@@ -181,7 +222,7 @@ public class HomeFragment extends Fragment {
 
     // Favori ikonuna tıklama durumu
     private void handleFavoriteClick(Book book, ImageView favoriteIcon) {
-        int bookId = book.getId();
+        String bookId = book.getId();
 
         if (FavoriteBookManager.isBookFavorited(bookId)) {
             // Eğer kitap favorilerde ise, favorilerden çıkar
@@ -196,10 +237,10 @@ public class HomeFragment extends Fragment {
     }
 
     // Kitabın favori durumunu kontrol etmek için
-    private FavoriteBook findFavoriteBookById(int bookId) {
+    private FavoriteBook findFavoriteBookById(String bookId) {
         for (FavoriteBook favoriteBook : FavoriteBookManager.getFavoriteBooks()) {
             System.out.print(favoriteBook.getName());
-            if (favoriteBook.getId() == bookId) {
+            if (favoriteBook.getId().equals(bookId)) {
                 return favoriteBook;
             }
         }
