@@ -7,14 +7,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.bookcornerapp_java.adapters.FavoriteAdapter;
 import com.example.bookcornerapp_java.model.FavoriteBook;
 import com.example.bookcornerapp_java.model.FavoriteBookManager;
 

@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import com.example.bookcornerapp_java.adapters.ProductAdapter;
 import com.example.bookcornerapp_java.databinding.ActivityProductBinding;
 import com.example.bookcornerapp_java.model.Book;
 import com.example.bookcornerapp_java.myInterfaces.OnBooksLoadedListener;

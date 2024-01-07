@@ -1,4 +1,4 @@
-package com.example.bookcornerapp_java;
+package com.example.bookcornerapp_java.adapters;
 
 import android.content.Context;
 import android.content.Intent;
@@ -9,6 +9,8 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.bookcornerapp_java.ProductDetailActivity;
+import com.example.bookcornerapp_java.R;
 import com.example.bookcornerapp_java.model.Book;
 
 import java.util.List;

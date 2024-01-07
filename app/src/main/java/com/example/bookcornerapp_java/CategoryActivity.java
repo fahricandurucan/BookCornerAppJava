@@ -1,20 +1,16 @@
 package com.example.bookcornerapp_java;
 
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.GridView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.bookcornerapp_java.adapters.CategoryAdapter;
 import com.example.bookcornerapp_java.databinding.ActivityCategoryBinding;
 import com.example.bookcornerapp_java.model.Category;
 import com.example.bookcornerapp_java.myInterfaces.OnCategoriesLoadedListener;
 import com.example.bookcornerapp_java.services.FirestoreManager;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class CategoryActivity extends AppCompatActivity {

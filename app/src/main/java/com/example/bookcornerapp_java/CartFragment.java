@@ -20,13 +20,13 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.bookcornerapp_java.adapters.CartAdapter;
 import com.example.bookcornerapp_java.model.Book;
 import com.example.bookcornerapp_java.sharedPreferences.SharedPreferencesHelper;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.List;
 
 /**

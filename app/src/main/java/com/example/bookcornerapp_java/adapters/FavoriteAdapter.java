@@ -1,4 +1,4 @@
-package com.example.bookcornerapp_java;
+package com.example.bookcornerapp_java.adapters;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,6 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.bookcornerapp_java.R;
 import com.example.bookcornerapp_java.model.FavoriteBook;
 
 import java.util.List;
