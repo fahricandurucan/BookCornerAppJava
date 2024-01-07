@@ -9,65 +9,58 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.bookcornerapp_java.model.Book;
+
+import java.util.List;
+
 public class ProductAdapter extends BaseAdapter {
 
     Context context;
-    String[] productName;
-    int[] image;
-
+    List<Book> bookList;
     LayoutInflater inflater;
 
-    public ProductAdapter(Context context, String[] productName, int[] image) {
+    public ProductAdapter(Context context, List<Book> bookList) {
         this.context = context;
-        this.productName = productName;
-        this.image = image;
+        this.bookList = bookList;
+        inflater = LayoutInflater.from(context);
     }
 
     @Override
     public int getCount() {
-        return productName.length;
+        return bookList.size();
     }
 
     @Override
-    public Object getItem(int i) {
-        return productName[i];
+    public Object getItem(int position) {
+        return bookList.get(position);
     }
 
     @Override
-    public long getItemId(int i) {
-        return 0;
+    public long getItemId(int position) {
+        return position;
     }
 
     @Override
-    public View getView(int i, View view, ViewGroup viewGroup) {
-        if(inflater == null){
-            inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+    public View getView(int position, View convertView, ViewGroup parent) {
+        if (convertView == null) {
+            convertView = inflater.inflate(R.layout.product_item, parent, false);
         }
 
-        if(view == null){
-            view = inflater.inflate(R.layout.product_item,null);
-        }
+        ImageView imageView = convertView.findViewById(R.id.imageProduct);
+        TextView textView = convertView.findViewById(R.id.productName);
 
-        ImageView imageView = view.findViewById(R.id.imageProduct);
-        TextView textView = view.findViewById(R.id.productName);
+        Book book = bookList.get(position);
+        // Set data from the Book object
+        imageView.setImageResource(book.getImage()); // Assuming Book has a method getImageResource()
+        textView.setText(book.getName()); // Assuming Book has a method getProductName()
 
-        imageView.setImageResource(image[i]);
-        textView.setText(productName[i]);
-
-        view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Tıklanılan öğenin pozisyonuna göre bir işlem yap
-                // Örneğin, yeni bir aktiviteye geçiş yapabilirsiniz.
-                Intent intent = new Intent(context, ProductDetailActivity.class);
-                // İlgili bilgileri intent'e ekleyebilirsiniz (örneğin, ürün adı, resim vs.)
-//                intent.putExtra("productName", productName[i]);
-//                intent.putExtra("productImage", image[i]);
-                context.startActivity(intent);
-            }
+        convertView.setOnClickListener(v -> {
+            Intent intent = new Intent(context, ProductDetailActivity.class);
+            // Pass data to ProductDetailActivity using intent
+            intent.putExtra("productId", book.getId());
+            context.startActivity(intent);
         });
 
-
-        return view;
+        return convertView;
     }
 }
