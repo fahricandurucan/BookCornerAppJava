@@ -1,6 +1,8 @@
 package com.example.bookcornerapp_java;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -52,13 +54,13 @@ public class CategoryActivity extends AppCompatActivity {
 //        CategoryAdapter categoryAdapter = new CategoryAdapter(CategoryActivity.this, categoryList);
 //        binding.gridview.setAdapter(categoryAdapter);
 
-//        Button addCategory = findViewById(R.id.categoryAdd);
-//        addCategory.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                firestoreManager.addCategory(new Category("6", "Art", R.drawable.art));
-//            }
-//        });
+        Button addCategory = findViewById(R.id.categoryAdd);
+        addCategory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                firestoreManager.addCategory(new Category("6", "Politics", R.drawable.politic));
+            }
+        });
     }
 
     // Örnek kategori verileri oluştur

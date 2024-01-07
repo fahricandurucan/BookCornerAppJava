@@ -20,7 +20,7 @@ public class FavoriteBookManager {
 
     public static boolean isBookFavorited(String bookId) {
         for (FavoriteBook favoriteBook : favoriteBooks) {
-            if (favoriteBook.getId() == bookId) {
+            if (favoriteBook.getId().equals(bookId)) {
                 return true;
             }
         }

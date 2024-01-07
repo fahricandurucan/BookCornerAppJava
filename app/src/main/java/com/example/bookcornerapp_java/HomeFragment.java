@@ -136,7 +136,14 @@ public class HomeFragment extends Fragment {
 
 
         // Eklemek istediğiniz kitap nesnesini oluşturun
-        Book newBook = new Book("4","1984", 9.99, "xxxx","Publisher 4", "Description 4", R.drawable.item6);
+        Book newBook = new Book("4",
+                "The Road to Serfdom",
+                16.75,
+                "Friedrich Hayek",
+                "University of Chicago Press",
+                "Friedrich Hayek's The Road to Serfdom explores the dangers of central planning and the erosion of individual freedoms. It remains a foundational work in classical liberal thought.",
+                R.drawable.politic6,
+                "Politics");
 
         ImageView bell_icon = view.findViewById(R.id.bell_icon);
 
@@ -176,7 +183,13 @@ public class HomeFragment extends Fragment {
             TextView bookName = bookCard.findViewById(R.id.bookName);
             TextView bookPrice = bookCard.findViewById(R.id.bookPrice);
             CardView cardView = bookCard.findViewById(R.id.cardView);
+            if(!FavoriteBookManager.getFavoriteBooks().isEmpty()){
+                Log.e("Listem", FavoriteBookManager.getFavoriteBooks().get(0).getName());
+            }
+
             ImageView favoriteIcon = bookCard.findViewById(R.id.favoriteIcon);  // Favori ikonu
+
+
             // Favori ikonuna tıklama durumu
             // Favori ikonuna tıklama durumu
             favoriteIcon.setOnClickListener(new View.OnClickListener() {
@@ -216,6 +229,15 @@ public class HomeFragment extends Fragment {
             bookCard.setLayoutParams(params);
 
             bookContainer.addView(bookCard);
+
+            for(int i = 0;i<FavoriteBookManager.getFavoriteBooks().size();i++){
+
+                if(FavoriteBookManager.getFavoriteBooks().get(i).getName().equals(bookName.getText().toString())){
+                    Log.e("if","if");
+                    updateFavoriteIcon(favoriteIcon, true);
+                }
+
+            }
         }
     }
 
@@ -256,4 +278,6 @@ public class HomeFragment extends Fragment {
     private FavoriteBook createFavoriteBook(Book book) {
         return new FavoriteBook(book.getId(), book.getName(), book.getPrice(), book.getPublisher(), book.getDescription(), book.getImage());
     }
+
+
 }
