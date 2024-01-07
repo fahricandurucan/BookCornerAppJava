@@ -2,8 +2,10 @@ package com.example.bookcornerapp_java.services;
 
 import android.util.Log;
 
-import com.example.bookcornerapp_java.OnBooksLoadedListener;
+import com.example.bookcornerapp_java.myInterfaces.OnBooksLoadedListener;
 import com.example.bookcornerapp_java.model.Book;
+import com.example.bookcornerapp_java.model.Category;
+import com.example.bookcornerapp_java.myInterfaces.OnCategoriesLoadedListener;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -15,6 +17,7 @@ import java.util.List;
 public class FirestoreManager {
 
     private static final String COLLECTION_NAME = "books"; // Firestore koleksiyon adı
+    private static final String CATEGORIES_COLLECTION_NAME = "categories"; // Yeni koleksiyon adı
 
     private FirebaseFirestore db;
     private CollectionReference booksCollection;
@@ -43,7 +46,7 @@ public class FirestoreManager {
                 .addOnFailureListener(e -> {
                     // Eklenirken bir hata oluştuğunda yapılacak işlemler
                     // Hata mesajını loglayabilir veya kullanıcıya bir hata mesajı gösterebilirsiniz
-                    Log.e("Error Firestore",e.toString());
+                    Log.e("Error Firestore Book Add",e.toString());
                 });
     }
 
@@ -60,7 +63,7 @@ public class FirestoreManager {
                 .addOnFailureListener(e -> {
                     // Güncellenirken bir hata oluştuğunda yapılacak işlemler
                     // Hata mesajını loglayabilir veya kullanıcıya bir hata mesajı gösterebilirsiniz
-                    Log.e("Error Firestore",e.toString());
+                    Log.e("Error Firestore Book Update",e.toString());
                 });
     }
 
@@ -86,6 +89,67 @@ public class FirestoreManager {
                     listener.onBooksLoadFailed("Veri çekme hatası: " + e.toString());
                 });
     }
+
+
+    // Firestore'a kategori eklemek için metot
+    public void addCategory(Category category) {
+        // Yeni bir belge oluştur ve verileri ekleyerek koleksiyona ekle
+        db.collection(CATEGORIES_COLLECTION_NAME)
+                .add(category)
+                .addOnSuccessListener(documentReference -> {
+                    // Başarıyla eklendiğinde yapılacak işlemler
+                    String documentId = documentReference.getId();
+                    category.setId(documentId);
+                    updateCategory(category);
+                })
+                .addOnFailureListener(e -> {
+                    // Eklenirken bir hata oluştuğunda yapılacak işlemler
+                    Log.e("Error Firestore Category Add", e.toString());
+                });
+    }
+
+    // Firestore'da kategoriyi güncellemek için metot
+    private void updateCategory(Category category) {
+        // Güncellenecek belgenin referansını al
+        DocumentReference categoryRef = db.collection(CATEGORIES_COLLECTION_NAME)
+                .document(String.valueOf(category.getId()));
+
+        // Belgeyi güncelle
+        categoryRef.set(category)
+                .addOnSuccessListener(aVoid -> {
+                    // Belge başarıyla güncellendiğinde yapılacak işlemler
+                })
+                .addOnFailureListener(e -> {
+                    // Güncellenirken bir hata oluştuğunda yapılacak işlemler
+                    Log.e("Error Firestore Category Update", e.toString());
+                });
+    }
+
+    // Firestore'dan kategorileri getirmek için metot
+    public void getCategories(OnCategoriesLoadedListener listener) {
+        CollectionReference categoriesCollection = db.collection(CATEGORIES_COLLECTION_NAME);
+
+        categoriesCollection.get()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+                    List<Category> categoryList = new ArrayList<>();
+
+                    for (DocumentSnapshot document : queryDocumentSnapshots) {
+                        Category category = document.toObject(Category.class);
+                        if (category != null) {
+                            categoryList.add(category);
+                        }
+                    }
+
+                    listener.onCategoriesLoaded(categoryList);
+                })
+                .addOnFailureListener(e -> {
+                    Log.e("FirestoreManager", "Kategoriler alınırken hata oluştu: " + e.toString());
+                    listener.onCategoriesLoadFailed("Veri çekme hatası: " + e.toString());
+                });
+    }
+
+
+
 }
 
 

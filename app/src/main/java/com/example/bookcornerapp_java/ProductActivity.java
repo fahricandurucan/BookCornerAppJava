@@ -5,9 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Toast;
 
-import com.example.bookcornerapp_java.databinding.ActivityCategoryBinding;
 import com.example.bookcornerapp_java.databinding.ActivityProductBinding;
 import com.example.bookcornerapp_java.model.Book;
+import com.example.bookcornerapp_java.myInterfaces.OnBooksLoadedListener;
 import com.example.bookcornerapp_java.services.FirestoreManager;
 
 import java.util.List;

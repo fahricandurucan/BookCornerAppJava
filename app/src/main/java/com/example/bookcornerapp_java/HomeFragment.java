@@ -13,15 +13,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.bookcornerapp_java.model.Book;
 import com.example.bookcornerapp_java.model.FavoriteBook;
 import com.example.bookcornerapp_java.model.FavoriteBookManager;
+import com.example.bookcornerapp_java.myInterfaces.OnBooksLoadedListener;
 import com.example.bookcornerapp_java.services.FirestoreManager;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
