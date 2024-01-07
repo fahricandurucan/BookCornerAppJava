@@ -10,12 +10,13 @@ public class Book implements Serializable {
     String publisher;
     String description;
     int image;
-
+    String category;
 
     public Book() {
         // Boş kurucu metod
     }
-    public Book(String id, String name, double price, String author, String publisher, String description, int image) {
+    public Book(String id, String name, double price, String author, String publisher,
+                String description, int image,String category) {
         this.id = id;
         this.name = name;
         this.price = price;
@@ -23,6 +24,7 @@ public class Book implements Serializable {
         this.publisher = publisher;
         this.description = description;
         this.image = image;
+        this.category = category;
     }
     public String getId() {
         return id;
@@ -47,11 +49,18 @@ public class Book implements Serializable {
         return description;
     }
 
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
     public int getImage() {
         return image;
     }
 
+    public String getCategory(){return category;}
+
     public void setId(String documentId) {
         id = documentId;
     }
+
 }

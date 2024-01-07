@@ -135,18 +135,18 @@ public class HomeFragment extends Fragment {
         FirestoreManager firestoreManager = new FirestoreManager();
 
 
-        // Eklemek istediğiniz kitap nesnesini oluşturun
-        Book newBook = new Book("4","1984", 9.99, "xxxx","Publisher 4", "Description 4", R.drawable.item6);
-
-        ImageView bell_icon = view.findViewById(R.id.bell_icon);
-
-        bell_icon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Firestore'a kitabı ekleyin
-                firestoreManager.addBook(newBook);
-            }
-        });
+//        // Eklemek istediğiniz kitap nesnesini oluşturun
+//        Book newBook = new Book("4","1984", 9.99, "xxxx","Publisher 4", "Description 4", R.drawable.item6);
+//
+//        ImageView bell_icon = view.findViewById(R.id.bell_icon);
+//
+//        bell_icon.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                // Firestore'a kitabı ekleyin
+//                firestoreManager.addBook(newBook);
+//            }
+//        });
 
         return view;
     }
@@ -176,7 +176,13 @@ public class HomeFragment extends Fragment {
             TextView bookName = bookCard.findViewById(R.id.bookName);
             TextView bookPrice = bookCard.findViewById(R.id.bookPrice);
             CardView cardView = bookCard.findViewById(R.id.cardView);
+            if(!FavoriteBookManager.getFavoriteBooks().isEmpty()){
+                Log.e("Listem", FavoriteBookManager.getFavoriteBooks().get(0).getName());
+            }
+
             ImageView favoriteIcon = bookCard.findViewById(R.id.favoriteIcon);  // Favori ikonu
+
+
             // Favori ikonuna tıklama durumu
             // Favori ikonuna tıklama durumu
             favoriteIcon.setOnClickListener(new View.OnClickListener() {
@@ -216,6 +222,15 @@ public class HomeFragment extends Fragment {
             bookCard.setLayoutParams(params);
 
             bookContainer.addView(bookCard);
+
+            for(int i = 0;i<FavoriteBookManager.getFavoriteBooks().size();i++){
+
+                if(FavoriteBookManager.getFavoriteBooks().get(i).getName().equals(bookName.getText().toString())){
+                    Log.e("if","if");
+                    updateFavoriteIcon(favoriteIcon, true);
+                }
+
+            }
         }
     }
 
@@ -256,4 +271,6 @@ public class HomeFragment extends Fragment {
     private FavoriteBook createFavoriteBook(Book book) {
         return new FavoriteBook(book.getId(), book.getName(), book.getPrice(), book.getPublisher(), book.getDescription(), book.getImage());
     }
+
+
 }
