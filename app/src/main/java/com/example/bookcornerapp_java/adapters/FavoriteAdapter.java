@@ -1,5 +1,6 @@
 package com.example.bookcornerapp_java.adapters;
 
+import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
 
@@ -19,10 +20,13 @@ import java.util.List;
 public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHolder> {
 
     private List<FavoriteBook> favoriteBookList;
+    private Context context; // Context değişkeni
+
 
     // Adapter constructor
-    public FavoriteAdapter(List<FavoriteBook> favoriteBookList) {
+    public FavoriteAdapter(List<FavoriteBook> favoriteBookList,Context context) {
         this.favoriteBookList = favoriteBookList;
+        this.context = context;
     }
 
     // Inner ViewHolder class
@@ -53,7 +57,10 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
         FavoriteBook favoriteBook = favoriteBookList.get(position);
         Log.d("favori",favoriteBook.getName());
         // Set item views based on your views and data model
-        holder.bookImage.setImageResource(favoriteBook.getImage());
+//        holder.bookImage.setImageResource(favoriteBook.getImage());
+        int drawableResourceId = context.getResources().getIdentifier(favoriteBook.getImage(), "drawable", context.getPackageName());
+        holder.bookImage.setImageResource(drawableResourceId);
+
         holder.bookName.setText(favoriteBook.getName());
         holder.bookPrice.setText("$" + favoriteBook.getPrice());
     }

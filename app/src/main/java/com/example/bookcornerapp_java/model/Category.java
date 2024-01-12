@@ -5,12 +5,12 @@ import java.io.Serializable;
 public class Category implements Serializable {
     String id;
     String name;
-    int image;
+    String image;
 
     public Category() {
         // Boş kurucu metod
     }
-    public Category(String id, String name, int image) {
+    public Category(String id, String name, String image) {
         this.id = id;
         this.name = name;
         this.image = image;
@@ -24,7 +24,7 @@ public class Category implements Serializable {
         return name;
     }
 
-    public int getImage() {
+    public String getImage() {
         return image;
     }
 

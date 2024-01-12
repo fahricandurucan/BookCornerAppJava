@@ -108,7 +108,7 @@ public class CartFragment extends Fragment {
             return emptyView;
         } else {
             // Sepet doluysa normal tasarımı göster
-            cartAdapter = new CartAdapter(cartItems);
+            cartAdapter = new CartAdapter(cartItems,getContext());
             recyclerView.setAdapter(cartAdapter);
 
 

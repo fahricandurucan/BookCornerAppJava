@@ -1,5 +1,7 @@
 package com.example.bookcornerapp_java;
 
+import static com.google.common.reflect.Reflection.getPackageName;
+
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -136,24 +138,24 @@ public class HomeFragment extends Fragment {
 
 
         // Eklemek istediğiniz kitap nesnesini oluşturun
-        Book newBook = new Book("4",
-                "The Road to Serfdom",
-                16.75,
-                "Friedrich Hayek",
-                "University of Chicago Press",
-                "Friedrich Hayek's The Road to Serfdom explores the dangers of central planning and the erosion of individual freedoms. It remains a foundational work in classical liberal thought.",
-                R.drawable.politic6,
-                "Politics");
+//        Book newBook = new Book("4",
+//                "The Road to Serfdom",
+//                16.75,
+//                "Friedrich Hayek",
+//                "University of Chicago Press",
+//                "Friedrich Hayek's The Road to Serfdom explores the dangers of central planning and the erosion of individual freedoms. It remains a foundational work in classical liberal thought.",
+//                R.drawable.politic6,
+//                "Politics");
 
         ImageView bell_icon = view.findViewById(R.id.bell_icon);
 
-        bell_icon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Firestore'a kitabı ekleyin
-                firestoreManager.addBook(newBook);
-            }
-        });
+//        bell_icon.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                // Firestore'a kitabı ekleyin
+//                firestoreManager.addBook(newBook);
+//            }
+//        });
 
         return view;
     }
@@ -201,7 +203,15 @@ public class HomeFragment extends Fragment {
             });
 
 
-            bookImage.setImageResource(book.getImage());
+            // Assuming your image is in the "drawable" folder with the filename "your_image_name"
+            int drawableResourceId = getResources().getIdentifier(book.getImage(), "drawable", requireContext().getPackageName());
+
+            // Set the image resource to the ImageView
+            bookImage.setImageResource(drawableResourceId);
+
+
+//            bookImage.setImageResource(book.getImage());
+
             bookName.setText(book.getName());
             bookPrice.setText("$" + book.getPrice());
 
@@ -278,6 +288,7 @@ public class HomeFragment extends Fragment {
     private FavoriteBook createFavoriteBook(Book book) {
         return new FavoriteBook(book.getId(), book.getName(), book.getPrice(), book.getPublisher(), book.getDescription(), book.getImage());
     }
+
 
 
 }

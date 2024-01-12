@@ -45,7 +45,9 @@ public class ProductDetailActivity extends AppCompatActivity {
             bookPriceTextView.setText("$" + selectedBook.getPrice());
             bookAuthorTextView.setText(selectedBook.getAuthor());
             bookPublisherText.setText(selectedBook.getPublisher());
-            bookImage.setImageResource(selectedBook.getImage());
+//            bookImage.setImageResource(selectedBook.getImage());
+            int drawableResourceId = getResources().getIdentifier(selectedBook.getImage(), "drawable", getPackageName());
+            bookImage.setImageResource(drawableResourceId);
 
 
             Button addToCartBtn = (Button) findViewById(R.id.addToCartBtn);

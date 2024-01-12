@@ -89,7 +89,7 @@ public class FavoriteFragment extends Fragment {
             recyclerView = view.findViewById(R.id.recyclerView);
             recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
             // Favori kitapları göstermek için uygun bir adapter oluşturun
-            favoriteAdapter = new FavoriteAdapter(favoriteBookList);
+            favoriteAdapter = new FavoriteAdapter(favoriteBookList,getContext());
 
             // RecyclerView'e adapter'i ayarlayın
             recyclerView.setAdapter(favoriteAdapter);

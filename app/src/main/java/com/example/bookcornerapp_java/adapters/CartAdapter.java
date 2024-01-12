@@ -1,5 +1,8 @@
 package com.example.bookcornerapp_java.adapters;
 
+import static com.google.common.reflect.Reflection.getPackageName;
+
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,9 +21,11 @@ import java.util.List;
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder> {
 
     private List<Book> cartItems;
+    private Context context; // Context değişkeni
 
-    public CartAdapter(List<Book> cartItems) {
+    public CartAdapter(List<Book> cartItems, Context context) {
         this.cartItems = cartItems;
+        this.context = context;
     }
 
     @NonNull
@@ -33,7 +38,12 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
     @Override
     public void onBindViewHolder(@NonNull CartViewHolder holder, int position) {
         Book cartItem = cartItems.get(position);
-        holder.cartItemImageView.setImageResource(cartItem.getImage());
+//        holder.cartItemImageView.setImageResource(cartItem.getImage());
+        // Assuming your image is in the "drawable" folder with the filename "your_image_name"
+        int drawableResourceId = context.getResources().getIdentifier(cartItem.getImage(), "drawable", context.getPackageName());
+        holder.cartItemImageView.setImageResource(drawableResourceId);
+
+
         holder.cartItemNameTextView.setText(cartItem.getName());
         holder.cartItemPriceTextView.setText("$" + cartItem.getPrice());
     }

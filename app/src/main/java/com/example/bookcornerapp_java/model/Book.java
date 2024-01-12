@@ -9,14 +9,14 @@ public class Book implements Serializable {
     String author;
     String publisher;
     String description;
-    int image;
+    String image;
     String category;
 
     public Book() {
         // Boş kurucu metod
     }
     public Book(String id, String name, double price, String author, String publisher,
-                String description, int image,String category) {
+                String description, String image,String category) {
         this.id = id;
         this.name = name;
         this.price = price;
@@ -53,7 +53,7 @@ public class Book implements Serializable {
         this.category = category;
     }
 
-    public int getImage() {
+    public String getImage() {
         return image;
     }
 

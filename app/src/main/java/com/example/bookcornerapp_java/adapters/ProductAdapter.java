@@ -53,7 +53,9 @@ public class ProductAdapter extends BaseAdapter {
 
         Book book = bookList.get(position);
         // Set data from the Book object
-        imageView.setImageResource(book.getImage()); // Assuming Book has a method getImageResource()
+//        imageView.setImageResource(book.getImage()); // Assuming Book has a method getImageResource()
+        int drawableResourceId = context.getResources().getIdentifier(book.getImage(), "drawable", context.getPackageName());
+        imageView.setImageResource(drawableResourceId);
         textView.setText(book.getName()); // Assuming Book has a method getProductName()
 
         convertView.setOnClickListener(v -> {
