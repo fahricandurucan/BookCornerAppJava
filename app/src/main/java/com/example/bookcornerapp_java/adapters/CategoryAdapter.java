@@ -1,6 +1,7 @@
 package com.example.bookcornerapp_java.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +9,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.bookcornerapp_java.BooksForCategoryActivity;
 import com.example.bookcornerapp_java.R;
 import com.example.bookcornerapp_java.model.Category;
 
@@ -58,6 +60,19 @@ public class CategoryAdapter extends BaseAdapter {
         imageView.setImageResource(drawableResourceId);
 
         textView.setText(category.getName());
+
+        convertView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Tıklanan kategoriyi al
+                Category clickedCategory = categoryList.get(position);
+
+                // Intent ile BooksForCategoryActivity'e geçiş yap ve seçilen kategoriyi gönder
+                Intent intent = new Intent(context, BooksForCategoryActivity.class);
+                intent.putExtra("selectedCategory", clickedCategory.getName());
+                context.startActivity(intent);
+            }
+        });
 
         return convertView;
     }
