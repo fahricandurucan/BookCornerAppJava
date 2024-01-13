@@ -6,6 +6,8 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -22,6 +24,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.bookcornerapp_java.adapters.CartAdapter;
+import com.example.bookcornerapp_java.databinding.ActivityMainBinding;
 import com.example.bookcornerapp_java.model.Book;
 import com.example.bookcornerapp_java.sharedPreferences.SharedPreferencesHelper;
 import com.google.gson.Gson;
@@ -124,7 +127,7 @@ public class CartFragment extends Fragment {
                 @Override
                 public void onClick(View view) {
                     // Sipariş alındı mesajını göster
-                    Toast.makeText(requireContext(), "Siparişiniz alındı!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(requireContext(), "Your order has been confirmed!", Toast.LENGTH_SHORT).show();
 
                     // Sepet verilerini temizle
                     clearCart();
@@ -142,21 +145,32 @@ public class CartFragment extends Fragment {
 
     private void goToHomeFragment() {
         // Belirli bir süre beklemek için Handler kullanımı
+        // WaitingFragment'i göster
+        requireActivity().getSupportFragmentManager().beginTransaction()
+                .replace(R.id.frameLayout, new WaitingCartFragment()) // fragment_container yerine uygun container ID'sini kullanın
+                .addToBackStack(null)
+                .commit();
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 // Burada belirli bir süre bekledikten sonra yapılacak işlemleri ekleyebilirsiniz
                 // Örneğin, başka bir işlemi gerçekleştirebilir veya ekranı güncelleyebilirsiniz
                 requireActivity().getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.frameLayout, new HomeFragment()) // fragment_container yerine uygun container ID'sini kullanın
+                        .replace(R.id.frameLayout, new CartFragment()) // fragment_container yerine uygun container ID'sini kullanın
                         .commit();
             }
-        }, 2000); // 2000 milisaniye (2 saniye) bekleyecek şekilde ayarlandı, ihtiyaca göre değiştirilebilir
+        }, 3000); // 2000 milisaniye (2 saniye) bekleyecek şekilde ayarlandı, ihtiyaca göre değiştirilebilir
 
     }
 
 
+    private void replaceFragment(Fragment fragment){
+        FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.frameLayout,fragment);
+        fragmentTransaction.commit();
 
+    }
 
     private void displayOrderSummary() {
         // SharedPreferences kullanarak sepete eklenen ürünleri okuyorum ama burası şimdilik iptal

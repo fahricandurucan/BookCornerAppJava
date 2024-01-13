@@ -289,6 +289,8 @@ public class HomeFragment extends Fragment {
         return new FavoriteBook(book.getId(), book.getName(), book.getPrice(), book.getPublisher(), book.getDescription(), book.getImage());
     }
 
-
-
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
 }

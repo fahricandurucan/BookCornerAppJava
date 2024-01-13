@@ -3,11 +3,14 @@ package com.example.bookcornerapp_java;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.bookcornerapp_java.adapters.ProductAdapter;
 import com.example.bookcornerapp_java.databinding.ActivityProductBinding;
 import com.example.bookcornerapp_java.model.Book;
+import com.example.bookcornerapp_java.model.FavoriteBookManager;
 import com.example.bookcornerapp_java.myInterfaces.OnBooksLoadedListener;
 import com.example.bookcornerapp_java.services.FirestoreManager;
 
@@ -40,16 +43,14 @@ public class ProductActivity extends AppCompatActivity {
                 Toast.makeText(ProductActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
             }
         });
+        ImageView backButton=findViewById(R.id.backBtn);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
-//
-//        String[] categoryName = {"War and Peace","The Little Prience","" +
-//                "Animal Farm",
-//                "1984"};
-//        int[] categoryImages = {R.drawable.item3,R.drawable.book1,
-//                R.drawable.item7,R.drawable.item6};
-//
-//        ProductAdapter productAdapter = new ProductAdapter(ProductActivity.this,categoryName,categoryImages);
-//        binding.gridviewProducts.setAdapter(productAdapter);
 
     }
 }
