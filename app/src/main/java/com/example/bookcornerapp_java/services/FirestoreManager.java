@@ -1,15 +1,21 @@
 package com.example.bookcornerapp_java.services;
 
+import android.net.Uri;
 import android.util.Log;
 
 import com.example.bookcornerapp_java.myInterfaces.OnBooksLoadedListener;
 import com.example.bookcornerapp_java.model.Book;
 import com.example.bookcornerapp_java.model.Category;
 import com.example.bookcornerapp_java.myInterfaces.OnCategoriesLoadedListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,11 +28,26 @@ public class FirestoreManager {
     private FirebaseFirestore db;
     private CollectionReference booksCollection;
 
+    private FirebaseStorage storage;
+    private StorageReference storageReference;
+    public void uploadImage(Uri imageUri, String imageName, OnSuccessListener<UploadTask.TaskSnapshot> successListener, OnFailureListener failureListener) {
+        StorageReference imageRef = storageReference.child("images/" + imageName);
+
+        // Resmi yükle
+        imageRef.putFile(imageUri)
+                .addOnSuccessListener(successListener)
+                .addOnFailureListener(failureListener);
+    }
+
+
     public FirestoreManager() {
         // Firestore bağlantısını başlat
         db = FirebaseFirestore.getInstance();
         // Koleksiyon referansını al
         booksCollection = db.collection(COLLECTION_NAME);
+
+        storage = FirebaseStorage.getInstance();
+        storageReference = storage.getReference();
     }
 
     // Firestore'a kitap eklemek için metot
@@ -147,6 +168,9 @@ public class FirestoreManager {
                     listener.onCategoriesLoadFailed("Veri çekme hatası: " + e.toString());
                 });
     }
+
+
+
 
 
 }

@@ -54,13 +54,13 @@ public class CategoryActivity extends AppCompatActivity {
 //        CategoryAdapter categoryAdapter = new CategoryAdapter(CategoryActivity.this, categoryList);
 //        binding.gridview.setAdapter(categoryAdapter);
 
-        Button addCategory = findViewById(R.id.categoryAdd);
-        addCategory.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                firestoreManager.addCategory(new Category("6", "Politics", R.drawable.politic));
-            }
-        });
+//        Button addCategory = findViewById(R.id.categoryAdd);
+//        addCategory.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                firestoreManager.addCategory(new Category("6", "Politics", R.drawable.politic));
+//            }
+//        });
     }
 
     // Örnek kategori verileri oluştur

@@ -53,7 +53,10 @@ public class CategoryAdapter extends BaseAdapter {
 
         Category category = categoryList.get(position);
 
-        imageView.setImageResource(category.getImage());
+//        imageView.setImageResource(category.getImage());
+        int drawableResourceId = context.getResources().getIdentifier(category.getImage(), "drawable", context.getPackageName());
+        imageView.setImageResource(drawableResourceId);
+
         textView.setText(category.getName());
 
         return convertView;
