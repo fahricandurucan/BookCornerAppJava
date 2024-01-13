@@ -39,12 +39,14 @@ public class ProductDetailActivity extends AppCompatActivity {
             TextView bookPriceTextView = findViewById(R.id.bookPriceTextView);
             TextView bookAuthorTextView = findViewById(R.id.bookAuthorTextView);
             TextView bookPublisherText = findViewById(R.id.bookPublisherText);
+            TextView bookDescriptionText = findViewById(R.id.bookDescriptionText);
             ImageView bookImage = findViewById(R.id.bookImage);
 
             bookNameTextView.setText(selectedBook.getName());
             bookPriceTextView.setText("$" + selectedBook.getPrice());
             bookAuthorTextView.setText(selectedBook.getAuthor());
             bookPublisherText.setText(selectedBook.getPublisher());
+            bookDescriptionText.setText(selectedBook.getDescription());
 //            bookImage.setImageResource(selectedBook.getImage());
             int drawableResourceId = getResources().getIdentifier(selectedBook.getImage(), "drawable", getPackageName());
             bookImage.setImageResource(drawableResourceId);

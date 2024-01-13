@@ -205,18 +205,12 @@
             </LinearLayout>
 
             <TextView
-                android:id="@+id/textView24"
+                android:id="@+id/bookDescriptionText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
                 android:layout_weight="1"
-                android:text="First published in 1943, The Little Prince is the most famous work of French aristocrat, writer, poet, and pioneering aviator Antoine de Saint-Exupéry. As a novella, The Little Prince is the fourth most-translated book in the world and was voted the best book of the 20th century in France.
-
-The novella is a poetic tale, with watercolour illustrations by the author, in which a pilot stranded in the desert meets a young prince fallen to Earth from a tiny asteroid named B-612.
-
-The book includes some criticism from a child’s eye on the strangeness of the adult world while telling the little prince’s adventures. The prince has since visited six other asteroids, each of which was inhabited by a single, irrational, narrow-minded adult. They include: a king with no subjects; a vain man who believes himself the most admirable person on his otherwise uninhabited planet; a drunkard who drinks to forget the shame of being a drunkard; a businessman who is blind to the beauty of the stars and instead endlessly counts them in order to own them all; a lamplighter who wastes his life blindly following orders and extinguishing and relighting a lamp once a minute; and an elderly geographer. His last stop is Earth where the prince thinks is uninhabited because he first lands in a desert. Than the little prince's reassurance to the pilot takes place, but soon he goes away from him by leaving his disappointments as well.
-
-"/>
+                android:text="Text Description" />
 
         </LinearLayout>
     </ScrollView>
@@ -226,6 +220,7 @@ The book includes some criticism from a child’s eye on the strangeness of the 
         style="@android:style/Widget.Button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="10dp"
         android:layout_marginBottom="1dp"
         android:background="@drawable/green_btn"
         android:text="Add to cart"
