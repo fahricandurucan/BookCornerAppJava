@@ -33,8 +33,8 @@
 
                 <ImageView
                     android:id="@+id/imageView10"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
                     android:src="@drawable/profile"
                     app:layout_constraintBottom_toBottomOf="@+id/top_background"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -74,83 +74,137 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:layout_marginTop="20dp">
+                android:layout_marginTop="20dp"
+                android:orientation="vertical">
 
-                <androidx.appcompat.widget.AppCompatButton
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="32dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="32dp"
                     android:layout_marginBottom="10dp"
-                    android:background="@drawable/grey_background"
-                    android:drawableStart="@drawable/btn_4"
-                    android:drawablePadding="20dp"
-                    android:paddingStart="20dp"
-                    android:text="Personal ınformatıon"
-                    android:textAlignment="viewStart"
-                    android:textStyle="bold"></androidx.appcompat.widget.AppCompatButton>
-                <androidx.appcompat.widget.AppCompatButton
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="32dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="32dp"
-                    android:layout_marginBottom="10dp"
-                    android:drawableStart="@drawable/btn_3"
-                    android:drawablePadding="20dp"
-                    android:paddingStart="20dp"
-                    android:background="@drawable/grey_background"
-                    android:text="Orders"
-                    android:textStyle="bold"
-                    android:textAlignment="viewStart"></androidx.appcompat.widget.AppCompatButton>
+                    android:background="@drawable/grey_background">
 
-                <androidx.appcompat.widget.AppCompatButton
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="32dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="32dp"
-                    android:layout_marginBottom="10dp"
-                    android:background="@drawable/grey_background"
-                    android:drawableStart="@drawable/btn_2"
-                    android:drawablePadding="20dp"
-                    android:paddingStart="20dp"
-                    android:text="Wıshlıst"
-                    android:textAlignment="viewStart"
-                    android:textStyle="bold"></androidx.appcompat.widget.AppCompatButton>
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:src="@drawable/profile_icon2"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="5dp"/>
 
-                <androidx.appcompat.widget.AppCompatButton
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingStart="10dp"
+                        android:text="Personal Information"
+                        android:textAlignment="viewStart"
+                        android:textStyle="bold"
+                        android:background="@android:color/transparent"/>
+                </LinearLayout>
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="32dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="32dp"
                     android:layout_marginBottom="10dp"
-                    android:background="@drawable/grey_background"
-                    android:drawableStart="@android:drawable/ic_menu_set_as"
-                    android:drawablePadding="20dp"
-                    android:paddingStart="20dp"
-                    android:text="Log out"
-                    android:textAlignment="viewStart"
-                    android:textStyle="bold"></androidx.appcompat.widget.AppCompatButton>
+                    android:background="@drawable/grey_background">
 
-                <androidx.appcompat.widget.AppCompatButton
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:src="@drawable/cart_icon2"
+                        android:paddingStart="5dp"
+                        android:paddingEnd="5dp"/>
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingStart="10dp"
+                        android:text="My Orders"
+                        android:textAlignment="viewStart"
+                        android:textStyle="bold"
+                        android:background="@android:color/transparent"/>
+                </LinearLayout>
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="32dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="32dp"
                     android:layout_marginBottom="10dp"
-                    android:background="@drawable/grey_background"
-                    android:drawableStart="@android:drawable/ic_menu_delete"
-                    android:drawablePadding="20dp"
-                    android:paddingStart="20dp"
-                    android:text="Delete Account"
-                    android:textAlignment="viewStart"
-                    android:textStyle="bold"></androidx.appcompat.widget.AppCompatButton>
+                    android:background="@drawable/grey_background">
+
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:src="@drawable/favorite_icon2"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="5dp"/>
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingStart="10dp"
+                        android:text="Favorites"
+                        android:textAlignment="viewStart"
+                        android:textStyle="bold"
+                        android:background="@android:color/transparent"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="32dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/grey_background">
+
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:src="@drawable/logout_icon2"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="5dp"/>
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingStart="14dp"
+                        android:text="Log out"
+                        android:textAlignment="viewStart"
+                        android:textStyle="bold"
+                        android:background="@android:color/transparent"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="32dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/grey_background">
+
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:src="@drawable/delete_icon2"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="5dp"/>
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingStart="10dp"
+                        android:text="Delete account"
+                        android:textAlignment="viewStart"
+                        android:textStyle="bold"
+                        android:background="@android:color/transparent"/>
+                </LinearLayout>
+
             </LinearLayout>
+
         </LinearLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
