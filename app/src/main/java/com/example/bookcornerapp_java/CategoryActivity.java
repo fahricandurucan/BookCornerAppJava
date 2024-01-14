@@ -3,6 +3,7 @@ package com.example.bookcornerapp_java;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -41,6 +42,15 @@ public class CategoryActivity extends AppCompatActivity {
             public void onCategoriesLoadFailed(String errorMessage) {
                 // Kategorileri yüklerken hata durumunu ele alın
                 Toast.makeText(CategoryActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        ImageView backButton =  findViewById(R.id.backBtn);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                onBackPressed();
             }
         });
 

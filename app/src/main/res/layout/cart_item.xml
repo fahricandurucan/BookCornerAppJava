@@ -47,9 +47,9 @@
     <!-- Delete İkonu -->
     <ImageView
         android:id="@+id/deleteIcon"
-        android:layout_width="28dp"
-        android:layout_height="28dp"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
         android:layout_margin="10dp"
-        android:src="@drawable/delete_icon2" />
+        android:src="@drawable/remove" />
 
 </LinearLayout>

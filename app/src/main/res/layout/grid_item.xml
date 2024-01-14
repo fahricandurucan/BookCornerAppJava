@@ -6,20 +6,21 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical"
-    android:padding="20dp">
+    android:padding="10dp">
 
     <androidx.cardview.widget.CardView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="140dp"
+        android:layout_height="180dp"
         android:layout_margin="8dp"
-        android:padding="16dp"
-        app:cardBackgroundColor="#089A72"
+        app:background="@drawable/gradient_card"
         app:cardCornerRadius="8dp"
-        app:cardElevation="8dp">
+        app:cardElevation="10dp">
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="140dp"
+            android:layout_height="180dp"
+            android:layout_gravity="center"
+            android:background="@drawable/gradient_card"
             android:gravity="center"
             android:orientation="vertical"
             android:padding="16dp">
@@ -38,8 +39,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:text="TextView"
+                android:textAlignment="center"
                 android:textColor="@color/white"
-                android:textSize="14sp" />
+                android:textSize="16sp" />
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
