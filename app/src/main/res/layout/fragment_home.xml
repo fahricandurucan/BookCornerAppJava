@@ -86,19 +86,30 @@
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <EditText
-                    android:id="@+id/editTextText"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:layout_margin="20dp"
-                    android:background="@drawable/edittext_background"
-                    android:drawableStart="@drawable/search_icon"
-                    android:drawablePadding="8dp"
-                    android:ems="10"
-                    android:hint="Search book"
-                    android:inputType="text"
-                    android:padding="8dp"
-                    android:textColor="#9AA2AA" />
+<!--                <EditText-->
+<!--                    android:id="@+id/searchEditText"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="50dp"-->
+<!--                    android:layout_margin="20dp"-->
+<!--                    android:background="@drawable/edittext_background"-->
+<!--                    android:drawableStart="@drawable/search_icon"-->
+<!--                    android:drawablePadding="8dp"-->
+<!--                    android:ems="10"-->
+<!--                    android:hint="Search book"-->
+<!--                    android:inputType="text"-->
+<!--                    android:padding="8dp"-->
+<!--                    android:textColor="#9AA2AA" />-->
+                
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:text="sdfkjsldkfjslkdwlşkefşlwefkwşlefkwlşefkşlwffjklsf"
+                    android:layout_gravity="center"
+                    >
+
+                </TextView>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"

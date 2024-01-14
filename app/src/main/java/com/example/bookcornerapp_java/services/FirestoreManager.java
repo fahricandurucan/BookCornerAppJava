@@ -235,6 +235,30 @@ public class FirestoreManager {
     }
 
 
+    // Firestore'da kitapları aramak için metot
+    public void searchBooks(String searchText, OnBooksLoadedListener listener) {
+        CollectionReference booksCollection = FirebaseFirestore.getInstance().collection("books");
+
+        booksCollection.whereGreaterThanOrEqualTo("name", searchText)
+                .whereLessThanOrEqualTo("name", searchText + "\uf8ff") // \uf8ff karakteri, Unicode'da en büyük karakterdir
+                .get()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+                    List<Book> bookList = new ArrayList<>();
+
+                    for (DocumentSnapshot document : queryDocumentSnapshots) {
+                        Book book = document.toObject(Book.class);
+                        if (book != null) {
+                            bookList.add(book);
+                        }
+                    }
+
+                    listener.onBooksLoaded(bookList);
+                })
+                .addOnFailureListener(e -> {
+                    Log.e("FirestoreManager", "Kitaplar aranırken hata oluştu: " + e.toString());
+                    listener.onBooksLoadFailed("Veri çekme hatası: " + e.toString());
+                });
+    }
 
 
 
