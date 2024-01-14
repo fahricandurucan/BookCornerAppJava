@@ -170,6 +170,31 @@ public class FirestoreManager {
     }
 
 
+    // Firestore'dan belirli bir kategoriye ait kitapları getirmek için metot
+    public void getBooksByCategory(String category, OnBooksLoadedListener listener) {
+        CollectionReference booksCollection = FirebaseFirestore.getInstance().collection("books");
+
+        booksCollection.whereEqualTo("category", category)
+                .get()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+                    List<Book> bookList = new ArrayList<>();
+
+                    for (DocumentSnapshot document : queryDocumentSnapshots) {
+                        Book book = document.toObject(Book.class);
+                        if (book != null) {
+                            bookList.add(book);
+                        }
+                    }
+
+                    listener.onBooksLoaded(bookList);
+                })
+                .addOnFailureListener(e -> {
+                    Log.e("FirestoreManager", "Kitaplar alınırken hata oluştu: " + e.toString());
+                    listener.onBooksLoadFailed("Veri çekme hatası: " + e.toString());
+                });
+    }
+
+
 
 
 
