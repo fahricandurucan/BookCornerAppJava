@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -55,6 +56,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
                 // Remove the book from the cart
                 SharedPreferencesHelper.removeBookFromCart(v.getContext(), cartItem);
                 Log.d("CartAdapter", "Delete icon clicked for book: " + cartItem.getName());
+                Toast.makeText(v.getContext(), cartItem.getName()+" removed your cart", Toast.LENGTH_SHORT).show();
             }
         });
     }
