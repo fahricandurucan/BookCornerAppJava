@@ -2,8 +2,10 @@ package com.example.bookcornerapp_java.sharedPreferences;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import com.example.bookcornerapp_java.model.Book;
+import com.example.bookcornerapp_java.myInterfaces.CartUpdateListener;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -13,10 +15,14 @@ import java.util.HashSet;
 import java.util.List;
 
 // SharedPreferencesHelper.java
-public class SharedPreferencesHelper {
+public class SharedPreferencesHelper implements  CartUpdateListener{
     private static final String PREF_NAME = "MyCartPreferences";
     private static final String KEY_CART_ITEMS = "cartItems";
+    private static CartUpdateListener cartUpdateListener;
 
+    public static void setCartUpdateListener(CartUpdateListener listener) {
+        cartUpdateListener = listener;
+    }
     public static void saveCartItems(Context context, List<Book> cartItems) {
         SharedPreferences.Editor editor = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE).edit();
         Gson gson = new Gson();
@@ -45,5 +51,36 @@ public class SharedPreferencesHelper {
     }
 
 
+    public static void removeBookFromCart(Context context, Book bookToRemove) {
+        List<Book> cartItems = getCartItems(context);
+
+        for (int i = 0; i < cartItems.size(); i++) {
+            Book book = cartItems.get(i);
+            if (book.getId().equals(bookToRemove.getId())) {
+                cartItems.remove(i);
+                saveCartItems(context, cartItems);
+                notifyCartUpdated(context);
+
+                Log.d("SharedPreferencesHelper", "Book removed from cart: " + book.getName());
+                break;
+            }
+        }
+
+    }
+    private static void notifyCartUpdated(Context context) {
+        if (cartUpdateListener != null) {
+            cartUpdateListener.onCartUpdated(getCartItems(context));
+        }
+    }
+
+
+    @Override
+    public void onCartUpdated(List<Book> updatedCartItems) {
+        // Burada gelen güncellenmiş liste üzerinden işlemleri yapabilirsiniz
+        // Örneğin, güncellenmiş verileri bir başka metoda iletebilir veya başka bir işlem gerçekleştirebilirsiniz.
+        if (cartUpdateListener != null) {
+            cartUpdateListener.onCartUpdated(updatedCartItems);
+        }
+    }
 }
 

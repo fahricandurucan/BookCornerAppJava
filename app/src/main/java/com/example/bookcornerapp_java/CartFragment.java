@@ -86,6 +86,7 @@ public class CartFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        // SharedPreferencesHelper sınıfına dinleyiciyi atanır.
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_cart, container, false);
         View emptyView = inflater.inflate(R.layout.fragment_empty,container,false);
@@ -186,6 +187,8 @@ public class CartFragment extends Fragment {
             // Örneğin, bir RecyclerView kullanabilirsiniz.
         }
     }
+
+
 
     private void updateTotalAmount() {
         // Sepetteki ürünlerin fiyatlarını alıyorum
