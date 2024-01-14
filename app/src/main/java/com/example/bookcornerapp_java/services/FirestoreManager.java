@@ -200,47 +200,48 @@ public class FirestoreManager {
             @Override
             public void onCategoriesLoaded(List<Category> categoryList) {
                 List<Book> oneBookPerCategoryList = new ArrayList<>();
+                List<String> bookNameList = new ArrayList<>();
+                bookNameList.add("Start with Why");
+                bookNameList.add("A Promised Land");
+                bookNameList.add("Orlando");
+                bookNameList.add("Whole 30");
+                bookNameList.add("The Elegant Universe");
+                bookNameList.add("The Very Hungry Caterpillar");
 
-                // Her kategori için
-                for (Category category : categoryList) {
-                    // Belirli bir kategoriden bir kitap getir
-                    getBooksByCategory(category.getName(), new OnBooksLoadedListener() {
-                        @Override
-                        public void onBooksLoaded(List<Book> bookList) {
-                            // Eğer kitaplar varsa, ilk kitabı al ve listeye ekle
-                            if (!bookList.isEmpty()) {
-                                oneBookPerCategoryList.add(bookList.get(0));
-                            }
+                // Belirli bir sırayla kitapları getir
+                getBooksByNames(bookNameList, new OnBooksLoadedListener() {
+                    @Override
+                    public void onBooksLoaded(List<Book> bookList) {
+                        // Kitapları ekleyin
+                        oneBookPerCategoryList.addAll(bookList);
 
-                            // Eğer tüm kategorilere baktıysak, sonucu döndür
-                            if (oneBookPerCategoryList.size() == categoryList.size()) {
-                                listener.onBooksLoaded(oneBookPerCategoryList);
-                            }
-                        }
-                        @Override
-                        public void onBooksLoadFailed(String errorMessage) {
-                            // Kitaplar alınırken hata oluştuğunda yapılacak işlemler
-                            Log.e("FirestoreManager", "Kitaplar alınırken hata oluştu: " + errorMessage);
-                        }
-                    });
-                }
+                        // Sonucu döndür
+                        listener.onBooksLoaded(oneBookPerCategoryList);
+                    }
+
+                    @Override
+                    public void onBooksLoadFailed(String errorMessage) {
+                        // Kitaplar alınırken hata oluştuğunda yapılacak işlemler
+                        Log.e("FirestoreManager", "Kitaplar alınırken hata oluştu: " + errorMessage);
+                        listener.onBooksLoadFailed(errorMessage);
+                    }
+                });
             }
 
             @Override
             public void onCategoriesLoadFailed(String errorMessage) {
                 // Kategoriler alınırken hata oluştuğunda yapılacak işlemler
                 Log.e("FirestoreManager", "Kategoriler alınırken hata oluştu: " + errorMessage);
+                listener.onBooksLoadFailed(errorMessage);
             }
         });
     }
 
-
-    // Firestore'da kitapları aramak için metot
-    public void searchBooks(String searchText, OnBooksLoadedListener listener) {
+    private void getBooksByNames(List<String> bookNames, OnBooksLoadedListener listener) {
+        // Firestore'dan belirli kitap isimlerine sahip kitapları getir
         CollectionReference booksCollection = FirebaseFirestore.getInstance().collection("books");
 
-        booksCollection.whereGreaterThanOrEqualTo("name", searchText)
-                .whereLessThanOrEqualTo("name", searchText + "\uf8ff") // \uf8ff karakteri, Unicode'da en büyük karakterdir
+        booksCollection.whereIn("name", bookNames)
                 .get()
                 .addOnSuccessListener(queryDocumentSnapshots -> {
                     List<Book> bookList = new ArrayList<>();
@@ -255,10 +256,37 @@ public class FirestoreManager {
                     listener.onBooksLoaded(bookList);
                 })
                 .addOnFailureListener(e -> {
-                    Log.e("FirestoreManager", "Kitaplar aranırken hata oluştu: " + e.toString());
+                    Log.e("FirestoreManager", "Kitaplar alınırken hata oluştu: " + e.toString());
                     listener.onBooksLoadFailed("Veri çekme hatası: " + e.toString());
                 });
     }
+
+
+
+//    // Firestore'da kitapları aramak için metot
+//    public void searchBooks(String searchText, OnBooksLoadedListener listener) {
+//        CollectionReference booksCollection = FirebaseFirestore.getInstance().collection("books");
+//
+//        booksCollection.whereGreaterThanOrEqualTo("name", searchText)
+//                .whereLessThanOrEqualTo("name", searchText + "\uf8ff") // \uf8ff karakteri, Unicode'da en büyük karakterdir
+//                .get()
+//                .addOnSuccessListener(queryDocumentSnapshots -> {
+//                    List<Book> bookList = new ArrayList<>();
+//
+//                    for (DocumentSnapshot document : queryDocumentSnapshots) {
+//                        Book book = document.toObject(Book.class);
+//                        if (book != null) {
+//                            bookList.add(book);
+//                        }
+//                    }
+//
+//                    listener.onBooksLoaded(bookList);
+//                })
+//                .addOnFailureListener(e -> {
+//                    Log.e("FirestoreManager", "Kitaplar aranırken hata oluştu: " + e.toString());
+//                    listener.onBooksLoadFailed("Veri çekme hatası: " + e.toString());
+//                });
+//    }
 
 
 
