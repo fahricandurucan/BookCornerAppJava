@@ -137,25 +137,25 @@ public class HomeFragment extends Fragment {
         FirestoreManager firestoreManager = new FirestoreManager();
 
 
-        // Eklemek istediğiniz kitap nesnesini oluşturun
-//        Book newBook = new Book("4",
-//                "The Road to Serfdom",
-//                16.75,
-//                "Friedrich Hayek",
-//                "University of Chicago Press",
-//                "Friedrich Hayek's The Road to Serfdom explores the dangers of central planning and the erosion of individual freedoms. It remains a foundational work in classical liberal thought.",
-//                R.drawable.politic6,
-//                "Politics");
+//         Eklemek istediğiniz kitap nesnesini oluşturun
+        Book newBook = new Book("4",
+                "The Enchanted Garden",
+                9.99,
+                "Jane Smith",
+                "Magical Tales Publishing",
+                "Jane Smith takes children on a magical journey into a whimsical garden, where imagination comes to life. With vibrant storytelling and captivating illustrations, this book sparks the creativity and wonder of young minds, inviting them into a world of enchantment and exploration.",
+                "child6",
+                "Children's Books");
 
         ImageView bell_icon = view.findViewById(R.id.bell_icon);
 
-//        bell_icon.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                // Firestore'a kitabı ekleyin
-//                firestoreManager.addBook(newBook);
-//            }
-//        });
+        bell_icon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Firestore'a kitabı ekleyin
+                firestoreManager.addBook(newBook);
+            }
+        });
 
         return view;
     }
