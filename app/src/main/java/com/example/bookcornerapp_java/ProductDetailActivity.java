@@ -58,7 +58,6 @@ public class ProductDetailActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
                     addToCart(selectedBook);
-                    Toast.makeText(ProductDetailActivity.this, selectedBook.getName()+" kitabı sepetinize eklendi", Toast.LENGTH_SHORT).show();
                 }
             });
 
@@ -82,7 +81,7 @@ public class ProductDetailActivity extends AppCompatActivity {
             cartItems.add(book);
             SharedPreferencesHelper.saveCartItems(this, cartItems);
 
-            Toast.makeText(this, book.getName() + " kitabı sepetinize eklendi", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, book.getName() + " added to your cart", Toast.LENGTH_SHORT).show();
         }
 
 //        // SharedPreferences kullanarak sepete eklenen ürünleri kaydet

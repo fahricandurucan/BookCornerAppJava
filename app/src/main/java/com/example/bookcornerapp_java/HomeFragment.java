@@ -96,17 +96,31 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        firestoreManager.getBooks(new OnBooksLoadedListener() {
+//        firestoreManager.getBooks(new OnBooksLoadedListener() {
+//            @Override
+//            public void onBooksLoaded(List<Book> bookList) {
+//                GridLayout bookContainer = view.findViewById(R.id.bookContainer);
+//                createBookCards(bookList, bookContainer);
+//            }
+//
+//            @Override
+//            public void onBooksLoadFailed(String errorMessage) {
+//                // Veri çekme işleminde hata oluştuğunda yapılacak işlemler
+//                Log.e("HomeFragment", errorMessage);
+//            }
+//        });
+        firestoreManager.getOneBookPerCategory(new OnBooksLoadedListener() {
+
             @Override
             public void onBooksLoaded(List<Book> bookList) {
-                GridLayout bookContainer = view.findViewById(R.id.bookContainer);
-                createBookCards(bookList, bookContainer);
+                    GridLayout bookContainer = view.findViewById(R.id.bookContainer);
+                    createBookCards(bookList, bookContainer);
             }
 
             @Override
             public void onBooksLoadFailed(String errorMessage) {
-                // Veri çekme işleminde hata oluştuğunda yapılacak işlemler
-                Log.e("HomeFragment", errorMessage);
+                // Kitaplar alınırken hata oluştuğunda yapılacak işlemler
+                Log.e("HomeFragment", "Kitaplar alınırken hata oluştu: " + errorMessage);
             }
         });
 
