@@ -194,6 +194,47 @@ public class FirestoreManager {
                 });
     }
 
+    public void getOneBookPerCategory(OnBooksLoadedListener listener) {
+        // Kategorileri getir
+        getCategories(new OnCategoriesLoadedListener() {
+            @Override
+            public void onCategoriesLoaded(List<Category> categoryList) {
+                List<Book> oneBookPerCategoryList = new ArrayList<>();
+
+                // Her kategori için
+                for (Category category : categoryList) {
+                    // Belirli bir kategoriden bir kitap getir
+                    getBooksByCategory(category.getName(), new OnBooksLoadedListener() {
+                        @Override
+                        public void onBooksLoaded(List<Book> bookList) {
+                            // Eğer kitaplar varsa, ilk kitabı al ve listeye ekle
+                            if (!bookList.isEmpty()) {
+                                oneBookPerCategoryList.add(bookList.get(0));
+                            }
+
+                            // Eğer tüm kategorilere baktıysak, sonucu döndür
+                            if (oneBookPerCategoryList.size() == categoryList.size()) {
+                                listener.onBooksLoaded(oneBookPerCategoryList);
+                            }
+                        }
+                        @Override
+                        public void onBooksLoadFailed(String errorMessage) {
+                            // Kitaplar alınırken hata oluştuğunda yapılacak işlemler
+                            Log.e("FirestoreManager", "Kitaplar alınırken hata oluştu: " + errorMessage);
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onCategoriesLoadFailed(String errorMessage) {
+                // Kategoriler alınırken hata oluştuğunda yapılacak işlemler
+                Log.e("FirestoreManager", "Kategoriler alınırken hata oluştu: " + errorMessage);
+            }
+        });
+    }
+
+
 
 
 
