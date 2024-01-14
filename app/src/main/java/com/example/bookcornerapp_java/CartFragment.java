@@ -102,7 +102,7 @@ public class CartFragment extends Fragment {
 
         // Sepet boşsa uygun bir mesaj göster
         if (cartItems == null || cartItems.isEmpty()) {
-            emptyCartTextView.setText("Ürün sepetiniz boş!");
+            emptyCartTextView.setText("Your cart is empty!");
             emptyCartImage.setImageResource(R.drawable.empty_cart);
             emptyCartTextView.setGravity(Gravity.CENTER);
             emptyCartTextView.setVisibility(View.VISIBLE);

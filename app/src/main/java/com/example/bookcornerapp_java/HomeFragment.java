@@ -15,12 +15,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.bookcornerapp_java.adapters.CategoryAdapter;
 import com.example.bookcornerapp_java.model.Book;
+import com.example.bookcornerapp_java.model.Category;
 import com.example.bookcornerapp_java.model.FavoriteBook;
 import com.example.bookcornerapp_java.model.FavoriteBookManager;
 import com.example.bookcornerapp_java.myInterfaces.OnBooksLoadedListener;
+import com.example.bookcornerapp_java.myInterfaces.OnCategoriesLoadedListener;
 import com.example.bookcornerapp_java.services.FirestoreManager;
 
 import java.util.List;
@@ -152,8 +157,63 @@ public class HomeFragment extends Fragment {
         bell_icon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                System.out.println("bell icno");
                 // Firestore'a kitabı ekleyin
-                firestoreManager.addBook(newBook);
+                firestoreManager.getOneBookPerCategory(new OnBooksLoadedListener() {
+
+                    @Override
+                    public void onBooksLoaded(List<Book> bookList) {
+                        System.out.println(bookList.size());
+                        for (Book book : bookList) {
+                            System.out.println(book.getName());
+                        }
+                    }
+
+                    @Override
+                    public void onBooksLoadFailed(String errorMessage) {
+                        // Kitaplar alınırken hata oluştuğunda yapılacak işlemler
+                        Log.e("HomeFragment", "Kitaplar alınırken hata oluştu: " + errorMessage);
+                    }
+                });
+
+                System.out.println("bell icon sonu");
+            }
+        });
+        LinearLayout childrenLayout= view.findViewById(R.id.childrenLayout);
+        LinearLayout healthLayout= view.findViewById(R.id.healthLayout);
+        LinearLayout improLayout= view.findViewById(R.id.improLayout);
+        LinearLayout politicLayout= view.findViewById(R.id.politicLayout);
+
+        childrenLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(getContext(), BooksForCategoryActivity.class);
+                intent.putExtra("selectedCategory","Children's Books");
+                startActivity(intent);
+            }
+        });
+        healthLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(getContext(), BooksForCategoryActivity.class);
+                intent.putExtra("selectedCategory","Health-Medicine");
+                startActivity(intent);
+            }
+        });
+        improLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(getContext(), BooksForCategoryActivity.class);
+                intent.putExtra("selectedCategory","Self-improvement");
+                startActivity(intent);
+            }
+        });
+        politicLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(getContext(), BooksForCategoryActivity.class);
+                intent.putExtra("selectedCategory","Politics");
+                startActivity(intent);
             }
         });
 
