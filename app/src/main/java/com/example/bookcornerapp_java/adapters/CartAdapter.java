@@ -60,7 +60,8 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
 
 
         holder.cartItemNameTextView.setText(cartItem.getName());
-        holder.cartItemPriceTextView.setText("$" + cartItem.getPrice());
+        String formattedPrice = String.format("$%.2f", cartItem.getPrice());
+        holder.cartItemPriceTextView.setText(formattedPrice);
 
 //        holder.cartItemAmountText.setText(String.valueOf(amount));
 
@@ -93,7 +94,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         TextView cartItemPriceTextView;
         ImageView cartItemDeleteIcon;
 
-        TextView cartItemAmountText;
+
 
         public CartViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -103,7 +104,6 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
             cartItemImageView = itemView.findViewById(R.id.cartItemImageView);
             cartItemNameTextView = itemView.findViewById(R.id.cartItemNameTextView);
             cartItemPriceTextView = itemView.findViewById(R.id.cartItemPriceTextView);
-            cartItemAmountText = itemView.findViewById(R.id.amountText);
 
         }
 
@@ -130,4 +130,3 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
     }
 
 }
-

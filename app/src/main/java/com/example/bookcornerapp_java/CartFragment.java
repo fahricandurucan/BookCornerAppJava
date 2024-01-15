@@ -146,6 +146,7 @@ public class CartFragment extends Fragment {
 
     }
 
+
     private void goToHomeFragment() {
         // Belirli bir süre beklemek için Handler kullanımı
         // WaitingFragment'i göster

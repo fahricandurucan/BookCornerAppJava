@@ -1,6 +1,7 @@
 package com.example.bookcornerapp_java.model;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class Book implements Serializable {
     String id;
@@ -61,6 +62,25 @@ public class Book implements Serializable {
 
     public void setId(String documentId) {
         id = documentId;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+
+        Book book = (Book) obj;
+        return id == book.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 
 }
