@@ -40,6 +40,8 @@ public class ProductActivity extends AppCompatActivity {
         allBooks = new ArrayList<>(); // Liste oluştur
         noResultsText = findViewById(R.id.noResultsText);
 
+        TextView textView = findViewById(R.id.textView18);
+        textView.setText("All Books");
 
         // Fetch books from Firestore
         firestoreManager.getBooks(new OnBooksLoadedListener() {

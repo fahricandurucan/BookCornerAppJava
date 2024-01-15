@@ -31,7 +31,9 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -52,6 +54,7 @@ public class CartFragment extends Fragment {
     private RecyclerView recyclerView;
     private CartAdapter cartAdapter;
     private TextView totalAmountTextView;
+    private Button orderNowBtn;
     public CartFragment() {
         // Required empty public constructor
     }
@@ -113,7 +116,7 @@ public class CartFragment extends Fragment {
             return emptyView;
         } else {
             // Sepet doluysa normal tasarımı göster
-            cartAdapter = new CartAdapter(cartItems,getContext());
+            cartAdapter = new CartAdapter(cartItems,getContext(),this);
             recyclerView.setAdapter(cartAdapter);
 
 
@@ -121,8 +124,7 @@ public class CartFragment extends Fragment {
             updateTotalAmount();
 
 
-            Button orderNowBtn = (Button) view.findViewById(R.id.orderNowBtn);
-
+            orderNowBtn = (Button) view.findViewById(R.id.orderNowBtn);
             // Order Now butonuna tıklama işlemini ekle
             orderNowBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -148,7 +150,7 @@ public class CartFragment extends Fragment {
         // Belirli bir süre beklemek için Handler kullanımı
         // WaitingFragment'i göster
         requireActivity().getSupportFragmentManager().beginTransaction()
-                .replace(R.id.frameLayout, new WaitingCartFragment()) // fragment_container yerine uygun container ID'sini kullanın
+                .replace(R.id.frameLayout, new WaitingCartFragment(R.drawable.shopping)) // fragment_container yerine uygun container ID'sini kullanın
                 .addToBackStack(null)
                 .commit();
         new Handler().postDelayed(new Runnable() {

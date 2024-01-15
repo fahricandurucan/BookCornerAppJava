@@ -84,34 +84,5 @@ public class ProductDetailActivity extends AppCompatActivity {
             Toast.makeText(this, book.getName() + " added to your cart", Toast.LENGTH_SHORT).show();
         }
 
-//        // SharedPreferences kullanarak sepete eklenen ürünleri kaydet
-//        SharedPreferences sharedPreferences = getSharedPreferences("Cart", MODE_PRIVATE);
-//        SharedPreferences.Editor editor = sharedPreferences.edit();
-//
-//        Gson gson = new Gson();
-//        String json = sharedPreferences.getString("cart", null);
-//
-//        if (json != null) {
-//            // Eğer önce bir liste kaydedilmişse, onu al
-//            Type type = new TypeToken<List<Book>>() {}.getType();
-//            List<Book> cart = gson.fromJson(json, type);
-//            if (cart == null) {
-//                cart = new ArrayList<>();
-//            }
-//            // Yeni ürünü listeye ekle
-//            cart.add(book);
-//            // Listeyi tekrar JSON formatına çevir ve SharedPreferences'a kaydet
-//            json = gson.toJson(cart);
-//            editor.putString("cart", json);
-//        } else {
-//            // İlk ürünü ekliyorsak yeni bir liste oluştur ve kaydet
-//            List<Book> cart = new ArrayList<>();
-//            cart.add(book);
-//            json = gson.toJson(cart);
-//            editor.putString("cart", json);
-//        }
-//
-//        // Değişiklikleri kaydet
-//        editor.apply();
 
 }
