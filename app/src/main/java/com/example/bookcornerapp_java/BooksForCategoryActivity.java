@@ -1,6 +1,8 @@
 package com.example.bookcornerapp_java;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -38,6 +40,7 @@ public class BooksForCategoryActivity extends AppCompatActivity {
         binding = ActivityProductBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        getWindow().setStatusBarColor(ContextCompat.getColor(BooksForCategoryActivity.this,R.color.green));
 
         // Kategoriyi al
         selectedCategory = getIntent().getStringExtra("selectedCategory");

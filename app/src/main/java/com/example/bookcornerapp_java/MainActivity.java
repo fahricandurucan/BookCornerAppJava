@@ -67,6 +67,7 @@
 package com.example.bookcornerapp_java;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -88,6 +89,8 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         replaceFragment(new HomeFragment());
+
+        getWindow().setStatusBarColor(ContextCompat.getColor(MainActivity.this,R.color.green));
 
 
         binding.bottomNavigationView.setOnItemSelectedListener(item -> {

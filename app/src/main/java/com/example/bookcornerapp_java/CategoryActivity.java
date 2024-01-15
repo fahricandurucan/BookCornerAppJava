@@ -7,6 +7,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import com.example.bookcornerapp_java.adapters.CategoryAdapter;
 import com.example.bookcornerapp_java.databinding.ActivityCategoryBinding;
@@ -26,6 +27,9 @@ public class CategoryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityCategoryBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        getWindow().setStatusBarColor(ContextCompat.getColor(CategoryActivity.this,R.color.green));
+
 
         firestoreManager = new FirestoreManager();
 

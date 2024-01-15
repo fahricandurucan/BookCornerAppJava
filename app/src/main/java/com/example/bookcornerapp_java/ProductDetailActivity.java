@@ -1,6 +1,7 @@
 package com.example.bookcornerapp_java;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -28,6 +29,9 @@ public class ProductDetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_detail);
+
+        getWindow().setStatusBarColor(ContextCompat.getColor(ProductDetailActivity.this,R.color.green));
+
 
         Intent intent = getIntent();
         if (intent != null && intent.hasExtra("selected_book")) {

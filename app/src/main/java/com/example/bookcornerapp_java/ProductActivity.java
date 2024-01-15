@@ -1,6 +1,7 @@
 package com.example.bookcornerapp_java;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import android.os.Bundle;
 import android.text.Editable;
@@ -21,20 +22,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ProductActivity extends AppCompatActivity {
-
     ActivityProductBinding binding;
     FirestoreManager firestoreManager;
     List<Book> allBooks; // Tüm kitapları saklamak için liste
 
     TextView noResultsText;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityProductBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        getWindow().setStatusBarColor(ContextCompat.getColor(ProductActivity.this,R.color.green));
+
 
         firestoreManager = new FirestoreManager();
         allBooks = new ArrayList<>(); // Liste oluştur
