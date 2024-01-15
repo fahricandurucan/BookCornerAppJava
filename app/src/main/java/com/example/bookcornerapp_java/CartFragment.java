@@ -54,6 +54,7 @@ public class CartFragment extends Fragment {
     private RecyclerView recyclerView;
     private CartAdapter cartAdapter;
     private TextView totalAmountTextView;
+    private TextView subtotal;
     private Button orderNowBtn;
     public CartFragment() {
         // Required empty public constructor
@@ -121,6 +122,7 @@ public class CartFragment extends Fragment {
 
 
             totalAmountTextView = view.findViewById(R.id.totalAmountTextView);
+            subtotal=view.findViewById(R.id.subtotal);
             updateTotalAmount();
 
 
@@ -205,6 +207,7 @@ public class CartFragment extends Fragment {
 
         // Toplam tutarı ekrana yazdırma
         totalAmountTextView.setText(totalAmount + "$");
+        subtotal.setText(totalAmount+"$");
     }
 
     private void clearCart() {

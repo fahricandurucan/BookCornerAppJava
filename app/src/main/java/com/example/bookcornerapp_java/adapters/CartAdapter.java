@@ -91,6 +91,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
     public static class CartViewHolder extends RecyclerView.ViewHolder {
         ImageView cartItemImageView;
         TextView cartItemNameTextView;
+        TextView subtotal;
         TextView cartItemPriceTextView;
         ImageView cartItemDeleteIcon;
 
