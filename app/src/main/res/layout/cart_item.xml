@@ -17,7 +17,7 @@
         android:layout_height="48dp"
         android:contentDescription="Book Image"
         android:scaleType="centerCrop"
-        android:src="@drawable/book1" />
+        android:src="@drawable/little_woman" />
 
     <!-- Kitap Bilgileri -->
     <LinearLayout

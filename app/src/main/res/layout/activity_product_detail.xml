@@ -58,7 +58,7 @@
                     android:layout_height="280dp"
                     android:layout_margin="10dp"
                     android:scaleType="centerInside"
-                    android:src="@drawable/book1"
+                    android:src="@drawable/little_woman"
                     app:layout_constraintBottom_toBottomOf="@+id/view2"
                     app:layout_constraintEnd_toEndOf="@+id/view2"
                     app:layout_constraintStart_toStartOf="@+id/view2"
