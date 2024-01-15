@@ -28,8 +28,13 @@ public class WaitingCartFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
+    int gifID;
+
     public WaitingCartFragment() {
         // Required empty public constructor
+    }
+    public WaitingCartFragment(int gifID) {
+        this.gifID = gifID;
     }
 
     /**
@@ -67,7 +72,7 @@ public class WaitingCartFragment extends Fragment {
         GifImageView gifImageView = view.findViewById(R.id.gifImageView);
 
         // Glide kütüphanesini kullanarak GIF dosyasını yükle
-        Glide.with(this).load(R.drawable.shopping).into(gifImageView);
+        Glide.with(this).load(gifID).into(gifImageView);
 
         // Inflate the layout for this fragment
         return view;

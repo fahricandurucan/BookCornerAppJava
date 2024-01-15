@@ -81,7 +81,7 @@ public class FavoriteFragment extends Fragment {
         List<FavoriteBook> favoriteBookList = FavoriteBookManager.getFavoriteBooks();
         // Sepet boşsa uygun bir mesaj göster
         if (favoriteBookList == null || favoriteBookList.isEmpty()) {
-            emptyCartTextView.setText("You don'have favorite book yet!");
+            emptyCartTextView.setText("Not have a your favorite book yet!");
             emptyCartImage.setImageResource(R.drawable.empty_favorite);
             Log.e("FavoriActivity", "Favori items are empty or null");
             return emptyView;
