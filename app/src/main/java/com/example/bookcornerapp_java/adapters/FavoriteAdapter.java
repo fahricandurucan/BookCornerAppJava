@@ -23,13 +23,11 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
     private Context context; // Context değişkeni
 
 
-    // Adapter constructor
     public FavoriteAdapter(List<FavoriteBook> favoriteBookList,Context context) {
         this.favoriteBookList = favoriteBookList;
         this.context = context;
     }
 
-    // Inner ViewHolder class
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public ImageView bookImage;
         public TextView bookName;
@@ -46,18 +44,14 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        // Inflate the item layout
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.favorite_book_item, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        // Get the data model based on position
         FavoriteBook favoriteBook = favoriteBookList.get(position);
         Log.d("favori",favoriteBook.getName());
-        // Set item views based on your views and data model
-//        holder.bookImage.setImageResource(favoriteBook.getImage());
         int drawableResourceId = context.getResources().getIdentifier(favoriteBook.getImage(), "drawable", context.getPackageName());
         holder.bookImage.setImageResource(drawableResourceId);
 

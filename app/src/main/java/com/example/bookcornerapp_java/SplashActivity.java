@@ -16,7 +16,7 @@ public class SplashActivity extends AppCompatActivity {
 
         getWindow().setStatusBarColor(ContextCompat.getColor(SplashActivity.this,R.color.green));
 
-
+        //Belirli bir süre sonra bir işlem yapmak için handler kulllanıyoruz
         new Handler().postDelayed(() -> {
             Intent intent = new Intent(SplashActivity.this, MainActivity.class);
             startActivity(intent);

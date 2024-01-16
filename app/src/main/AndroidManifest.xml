@@ -23,9 +23,6 @@
             android:name=".BooksForCategoryActivity"
             android:exported="false" />
         <activity
-            android:name=".WaitingCartActivity"
-            android:exported="false" />
-        <activity
             android:name=".ProductActivity"
             android:exported="false" />
         <activity

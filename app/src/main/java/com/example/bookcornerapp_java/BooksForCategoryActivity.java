@@ -30,7 +30,7 @@ public class BooksForCategoryActivity extends AppCompatActivity {
 
     TextView categoryTextview;
 
-    List<Book> allBooks; // Tüm kitapları saklamak için liste
+    List<Book> allBooks;
 
 
 
@@ -42,37 +42,28 @@ public class BooksForCategoryActivity extends AppCompatActivity {
 
         getWindow().setStatusBarColor(ContextCompat.getColor(BooksForCategoryActivity.this,R.color.green));
 
-        // Kategoriyi al
         selectedCategory = getIntent().getStringExtra("selectedCategory");
 
         TextView textView = findViewById(R.id.textView18);
         textView.setText("⭐"+selectedCategory+"⭐");
 
         categoryTextview = (TextView) findViewById(R.id.categoryTextview);
-//        categoryTextview.setText(selectedCategory);
-
-
-
-        Log.d("categoryText.setText(selectedCategory.to);",selectedCategory);
-
 
         firestoreManager = new FirestoreManager();
 
         firestoreManager.getBooksByCategory(selectedCategory, new OnBooksLoadedListener() {
             @Override
             public void onBooksLoaded(List<Book> bookList) {
-                // Kitapları göster
                 allBooks = bookList;
             }
 
             @Override
             public void onBooksLoadFailed(String errorMessage) {
-                // Kitapları yüklerken hata durumunu ele alın
                 Toast.makeText(BooksForCategoryActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
             }
         });
 
-        // Kategoriyi kullanarak Firestore'dan kitapları getir
+        // get book by category
         fetchBooksByCategory(selectedCategory);
 
         ImageView backButton = findViewById(R.id.backBtn);
@@ -84,33 +75,28 @@ public class BooksForCategoryActivity extends AppCompatActivity {
         });
 
 
-        // Search EditText üzerinde TextWatcher ekleyin
+        // search part
         binding.searchEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                // Text değişmeden önceki durumu burada kontrol edebilirsiniz
             }
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                // Text değiştiğinde burada yapılacak işlemleri ekleyin
                 String searchText = charSequence.toString();
                 performSearch(searchText);
             }
 
             @Override
             public void afterTextChanged(Editable editable) {
-                // Text değiştikten sonraki durumu burada kontrol edebilirsiniz
             }
         });
     }
 
-    // performSearch metodunu çağırmak için arama metni parametresiyle
     private void performSearch(String searchText) {
-        // Tüm kitaplar arasında arama yap
+        // Tüm kitaplar arasında arama yapa
         List<Book> searchResults = new ArrayList<>();
         for (Book book : allBooks) {
-            // Kitap isminde arama yap
             if (book.getName().toLowerCase().contains(searchText.toLowerCase())) {
                 searchResults.add(book);
             }
@@ -122,25 +108,22 @@ public class BooksForCategoryActivity extends AppCompatActivity {
         }
         else{
             binding.gridviewProducts.setVisibility(View.VISIBLE);
-            binding.noResultsText.setVisibility(View.GONE);            // Update the adapter with the search results
+            binding.noResultsText.setVisibility(View.GONE);
             BooksForCategoryAdapter booksForCategoryAdapter = new BooksForCategoryAdapter(BooksForCategoryActivity.this,searchResults);
             binding.gridviewProducts.setAdapter(booksForCategoryAdapter);
         }
     }
 
     private void fetchBooksByCategory(String category) {
-        // Firestore'dan seçilen kategoriye ait kitapları getir
         firestoreManager.getBooksByCategory(category, new OnBooksLoadedListener() {
             @Override
             public void onBooksLoaded(List<Book> bookList) {
-                // Kitapları göster
                 BooksForCategoryAdapter adapter = new BooksForCategoryAdapter(BooksForCategoryActivity.this, bookList);
                 binding.gridviewProducts.setAdapter(adapter);
             }
 
             @Override
             public void onBooksLoadFailed(String errorMessage) {
-                // Kitapları yüklerken hata durumunu ele alın
                 Toast.makeText(BooksForCategoryActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
             }
         });

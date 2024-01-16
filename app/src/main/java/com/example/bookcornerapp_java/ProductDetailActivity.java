@@ -24,7 +24,6 @@ import java.util.List;
 
 public class ProductDetailActivity extends AppCompatActivity {
 
-    ImageView btnBack;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,8 +36,6 @@ public class ProductDetailActivity extends AppCompatActivity {
         if (intent != null && intent.hasExtra("selected_book")) {
             Book selectedBook = (Book) intent.getSerializableExtra("selected_book");
 
-            // Burada seçilen kitap bilgilerini kullanabilirsiniz
-            // Örnek olarak:
             TextView bookNameTextView = findViewById(R.id.bookNameTextView);
             TextView bookPriceTextView = findViewById(R.id.bookPriceTextView);
             TextView bookAuthorTextView = findViewById(R.id.bookAuthorTextView);
@@ -51,7 +48,6 @@ public class ProductDetailActivity extends AppCompatActivity {
             bookAuthorTextView.setText(selectedBook.getAuthor());
             bookPublisherText.setText(selectedBook.getPublisher());
             bookDescriptionText.setText(selectedBook.getDescription());
-//            bookImage.setImageResource(selectedBook.getImage());
             int drawableResourceId = getResources().getIdentifier(selectedBook.getImage(), "drawable", getPackageName());
             bookImage.setImageResource(drawableResourceId);
 
@@ -76,11 +72,9 @@ public class ProductDetailActivity extends AppCompatActivity {
         }
 
     }
-
-
-
+        // save products on cart (we are using sharedpreferencess)
         private void addToCart(Book book) {
-            // Helper sınıfını kullanarak sepete eklenen ürünleri kaydet
+
             List<Book> cartItems = SharedPreferencesHelper.getCartItems(this);
             cartItems.add(book);
             SharedPreferencesHelper.saveCartItems(this, cartItems);

@@ -61,7 +61,7 @@ public class BooksForCategoryAdapter extends BaseAdapter {
         int drawableResourceId = context.getResources().getIdentifier(book.getImage(), "drawable", context.getPackageName());
         imageView.setImageResource(drawableResourceId);
         textView.setText(book.getName());
-        priceTextView.setText("$"+book.getPrice()); // Assuming Book has a method getPrice()
+        priceTextView.setText("$"+book.getPrice());
 
         convertView.setOnClickListener(v -> {
             Intent intent = new Intent(context, ProductDetailActivity.class);

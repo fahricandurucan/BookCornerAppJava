@@ -1,6 +1,4 @@
 package com.example.bookcornerapp_java;
-
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -56,7 +54,6 @@ public class ProfileFragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
 
-
     }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -65,7 +62,5 @@ public class ProfileFragment extends Fragment {
 
         return view;
     }
-
-
 
 }

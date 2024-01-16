@@ -64,10 +64,8 @@ public class CategoryAdapter extends BaseAdapter {
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Tıklanan kategoriyi al
                 Category clickedCategory = categoryList.get(position);
 
-                // Intent ile BooksForCategoryActivity'e geçiş yap ve seçilen kategoriyi gönder
                 Intent intent = new Intent(context, BooksForCategoryActivity.class);
                 intent.putExtra("selectedCategory", clickedCategory.getName());
                 context.startActivity(intent);

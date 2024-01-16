@@ -57,7 +57,6 @@ public class CartFragment extends Fragment {
     private TextView subtotal;
     private Button orderNowBtn;
     public CartFragment() {
-        // Required empty public constructor
     }
 
     /**
@@ -90,51 +89,39 @@ public class CartFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // SharedPreferencesHelper sınıfına dinleyiciyi atanır.
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_cart, container, false);
         View emptyView = inflater.inflate(R.layout.fragment_empty,container,false);
 
-        LinearLayout linearLayout2 = view.findViewById(R.id.linearLayout2);
         TextView emptyCartTextView = emptyView.findViewById(R.id.textViewEmpty);
         ImageView emptyCartImage = emptyView.findViewById(R.id.emptyCartImage);
 
-        // SharedPreferences'ten verileri al
+        // get data from SharedPreferences
         List<Book> cartItems = SharedPreferencesHelper.getCartItems(requireContext());
-        // RecyclerView'ı ayarla
         recyclerView = view.findViewById(R.id.view);
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
 
-        // Sepet boşsa uygun bir mesaj göster
         if (cartItems == null || cartItems.isEmpty()) {
             emptyCartTextView.setText("Your cart is empty!");
             emptyCartImage.setImageResource(R.drawable.empty_cart);
             emptyCartTextView.setGravity(Gravity.CENTER);
             emptyCartTextView.setVisibility(View.VISIBLE);
-//            recyclerView.setVisibility(View.GONE);
-//            linearLayout2.setVisibility(View.GONE);
             Log.e("CartActivity", "Cart items are empty or null");
             return emptyView;
         } else {
-            // Sepet doluysa normal tasarımı göster
             cartAdapter = new CartAdapter(cartItems,getContext(),this);
             recyclerView.setAdapter(cartAdapter);
-
 
             totalAmountTextView = view.findViewById(R.id.totalAmountTextView);
             subtotal=view.findViewById(R.id.subtotal);
             updateTotalAmount();
 
-
             orderNowBtn = (Button) view.findViewById(R.id.orderNowBtn);
-            // Order Now butonuna tıklama işlemini ekle
             orderNowBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    // Sipariş alındı mesajını göster
                     Toast.makeText(requireContext(), "Your order has been confirmed!", Toast.LENGTH_SHORT).show();
 
-                    // Sepet verilerini temizle
+                    // clean order
                     clearCart();
                     recyclerView.setAdapter(cartAdapter);
                     goToHomeFragment();
@@ -150,69 +137,36 @@ public class CartFragment extends Fragment {
 
 
     private void goToHomeFragment() {
-        // Belirli bir süre beklemek için Handler kullanımı
-        // WaitingFragment'i göster
+        // WaitingFragment'i göstermek için yazdık
         requireActivity().getSupportFragmentManager().beginTransaction()
-                .replace(R.id.frameLayout, new WaitingCartFragment(R.drawable.shopping)) // fragment_container yerine uygun container ID'sini kullanın
+                .replace(R.id.frameLayout, new WaitingCartFragment(R.drawable.shopping))
                 .addToBackStack(null)
                 .commit();
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                // Burada belirli bir süre bekledikten sonra yapılacak işlemleri ekleyebilirsiniz
-                // Örneğin, başka bir işlemi gerçekleştirebilir veya ekranı güncelleyebilirsiniz
                 requireActivity().getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.frameLayout, new CartFragment()) // fragment_container yerine uygun container ID'sini kullanın
+                        .replace(R.id.frameLayout, new CartFragment())
                         .commit();
             }
-        }, 3000); // 2000 milisaniye (2 saniye) bekleyecek şekilde ayarlandı, ihtiyaca göre değiştirilebilir
+        }, 3000);
 
     }
-
-
-    private void replaceFragment(Fragment fragment){
-        FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.frameLayout,fragment);
-        fragmentTransaction.commit();
-
-    }
-
-    private void displayOrderSummary() {
-        // SharedPreferences kullanarak sepete eklenen ürünleri okuyorum ama burası şimdilik iptal
-        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("Cart", MODE_PRIVATE);
-        Gson gson = new Gson();
-        String json = sharedPreferences.getString("cart", null);
-
-        if (json != null) {
-            Type type = new TypeToken<List<Book>>() {}.getType();
-            List<Book> cart = gson.fromJson(json, type);
-            Log.d("Listemiz",cart.toString());
-            // cart listesini kullanarak sipariş özetini göster
-            // Örneğin, bir RecyclerView kullanabilirsiniz.
-        }
-    }
-
 
 
     private void updateTotalAmount() {
-        // Sepetteki ürünlerin fiyatlarını alıyorum
         List<Book> cartItems = SharedPreferencesHelper.getCartItems(requireContext());
 
-        // Toplam tutarı hesapla
         double totalAmount = 0.0;
         for (Book book : cartItems) {
             totalAmount += book.getPrice();
         }
 
-        // Toplam tutarı ekrana yazdırma
         totalAmountTextView.setText(totalAmount + "$");
         subtotal.setText(totalAmount+"$");
     }
 
     private void clearCart() {
-        // Sepet verilerini temizle (SharedPreferences'den)
         SharedPreferencesHelper.clearCart(requireContext());
-
     }
 }

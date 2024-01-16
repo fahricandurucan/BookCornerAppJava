@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
-// SharedPreferencesHelper.java
+
 public class SharedPreferencesHelper implements  CartUpdateListener{
     private static final String PREF_NAME = "MyCartPreferences";
     private static final String KEY_CART_ITEMS = "cartItems";
@@ -76,8 +76,7 @@ public class SharedPreferencesHelper implements  CartUpdateListener{
 
     @Override
     public void onCartUpdated(List<Book> updatedCartItems) {
-        // Burada gelen güncellenmiş liste üzerinden işlemleri yapabilirsiniz
-        // Örneğin, güncellenmiş verileri bir başka metoda iletebilir veya başka bir işlem gerçekleştirebilirsiniz.
+        // Burada gelen güncellenmiş liste üzerinden işlemleri yapıyoruz
         if (cartUpdateListener != null) {
             cartUpdateListener.onCartUpdated(updatedCartItems);
         }
