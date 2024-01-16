@@ -26,11 +26,10 @@ import java.util.List;
  */
 public class FavoriteFragment extends Fragment {
     private RecyclerView recyclerView;
-    private FavoriteAdapter favoriteAdapter; // Favori kitapları göstermek için uygun bir adapter kullanın
+    private FavoriteAdapter favoriteAdapter; // show favorite bookks and use adapters
 
 
     // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
@@ -77,9 +76,7 @@ public class FavoriteFragment extends Fragment {
 
         TextView emptyCartTextView = emptyView.findViewById(R.id.textViewEmpty);
         ImageView emptyCartImage = emptyView.findViewById(R.id.emptyCartImage);
-        // Favori kitapları içeren bir liste oluşturun (örnek olarak)
         List<FavoriteBook> favoriteBookList = FavoriteBookManager.getFavoriteBooks();
-        // Sepet boşsa uygun bir mesaj göster
         if (favoriteBookList == null || favoriteBookList.isEmpty()) {
             emptyCartTextView.setText("Not have a your favorite book yet!");
             emptyCartImage.setImageResource(R.drawable.empty_favorite);
@@ -88,16 +85,12 @@ public class FavoriteFragment extends Fragment {
         } else {
             recyclerView = view.findViewById(R.id.recyclerView);
             recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-            // Favori kitapları göstermek için uygun bir adapter oluşturun
             favoriteAdapter = new FavoriteAdapter(favoriteBookList,getContext());
 
-            // RecyclerView'e adapter'i ayarlayın
             recyclerView.setAdapter(favoriteAdapter);
 
             return view;
         }
-
-
 
     }
 }

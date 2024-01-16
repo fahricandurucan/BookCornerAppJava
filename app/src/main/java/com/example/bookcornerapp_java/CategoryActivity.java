@@ -33,18 +33,16 @@ public class CategoryActivity extends AppCompatActivity {
 
         firestoreManager = new FirestoreManager();
 
-        // Firestore'dan kategorileri getir
+        // get categories from firebase
         firestoreManager.getCategories(new OnCategoriesLoadedListener() {
             @Override
             public void onCategoriesLoaded(List<Category> categoryList) {
-                // Kategorileri göster
                 CategoryAdapter categoryAdapter = new CategoryAdapter(CategoryActivity.this, categoryList);
                 binding.gridview.setAdapter(categoryAdapter);
             }
 
             @Override
             public void onCategoriesLoadFailed(String errorMessage) {
-                // Kategorileri yüklerken hata durumunu ele alın
                 Toast.makeText(CategoryActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
             }
         });
@@ -58,8 +56,6 @@ public class CategoryActivity extends AppCompatActivity {
             }
         });
 
-
     }
-
 
 }

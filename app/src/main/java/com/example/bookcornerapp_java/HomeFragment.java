@@ -82,7 +82,7 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                       Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
-        // FirestoreManager sınıfını oluşturun
+        // we create FirestoreManager class
         firestoreManager = new FirestoreManager();
 
 
@@ -96,19 +96,6 @@ public class HomeFragment extends Fragment {
             }
         });
 
-//        firestoreManager.getBooks(new OnBooksLoadedListener() {
-//            @Override
-//            public void onBooksLoaded(List<Book> bookList) {
-//                GridLayout bookContainer = view.findViewById(R.id.bookContainer);
-//                createBookCards(bookList, bookContainer);
-//            }
-//
-//            @Override
-//            public void onBooksLoadFailed(String errorMessage) {
-//                // Veri çekme işleminde hata oluştuğunda yapılacak işlemler
-//                Log.e("HomeFragment", errorMessage);
-//            }
-//        });
         firestoreManager.getOneBookPerCategory(new OnBooksLoadedListener() {
 
             @Override
@@ -119,27 +106,11 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onBooksLoadFailed(String errorMessage) {
-                // Kitaplar alınırken hata oluştuğunda yapılacak işlemler
+                // if there is an error
                 Log.e("HomeFragment", "Kitaplar alınırken hata oluştu: " + errorMessage);
             }
         });
 
-//        // Kitap verilerini oluştur
-//        List<Book> bookList = firestoreManager.getBooks();
-//        Log.e("weşlkdjewş","wkeljmklwe");
-//        // Kitap kartlarını oluştur ve layouta ekle
-//        GridLayout bookContainer = view.findViewById(R.id.bookContainer);
-//        createBookCards(bookList, bookContainer);
-
-//        CardView cardView1 = view.findViewById(R.id.cardview);
-//
-//        cardView1.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent=new Intent(getActivity(),ProductDetailActivity.class);
-//                startActivity(intent);
-//            }
-//        });
 
         TextView txtSeeAll = view.findViewById(R.id.txtSeeAll);
 
@@ -152,47 +123,47 @@ public class HomeFragment extends Fragment {
         });
 
 
-        // FirestoreManager sınıfını oluşturun
-        FirestoreManager firestoreManager = new FirestoreManager();
 
 
-//         Eklemek istediğiniz kitap nesnesini oluşturun
-        Book newBook = new Book("4",
-                "The Enchanted Garden",
-                9.99,
-                "Jane Smith",
-                "Magical Tales Publishing",
-                "Jane Smith takes children on a magical journey into a whimsical garden, where imagination comes to life. With vibrant storytelling and captivating illustrations, this book sparks the creativity and wonder of young minds, inviting them into a world of enchantment and exploration.",
-                "child6",
-                "Children's Books");
+//         add book
+//        Book newBook = new Book("4",
+//                "The Enchanted Garden",
+//                9.99,
+//                "Jane Smith",
+//                "Magical Tales Publishing",
+//                "Jane Smith takes children on a magical journey into a whimsical garden, where imagination comes to life. With vibrant storytelling and captivating illustrations, this book sparks the creativity and wonder of young minds, inviting them into a world of enchantment and exploration.",
+//                "child6",
+//                "Children's Books");
+//
+//        ImageView bell_icon = view.findViewById(R.id.bell_icon);
+//
+//        bell_icon.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                System.out.println("bell icno");
+//                // Firestore'a kitabı ekleyin
+//                firestoreManager.getOneBookPerCategory(new OnBooksLoadedListener() {
+//
+//                    @Override
+//                    public void onBooksLoaded(List<Book> bookList) {
+//                        System.out.println(bookList.size());
+//                        for (Book book : bookList) {
+//                            System.out.println(book.getName());
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onBooksLoadFailed(String errorMessage) {
+//                        // Kitaplar alınırken hata oluştuğunda yapılacak işlemler
+//                        Log.e("HomeFragment", "Kitaplar alınırken hata oluştu: " + errorMessage);
+//                    }
+//                });
+//
+//                System.out.println("bell icon sonu");
+//            }
+//        });
 
-        ImageView bell_icon = view.findViewById(R.id.bell_icon);
 
-        bell_icon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                System.out.println("bell icno");
-                // Firestore'a kitabı ekleyin
-                firestoreManager.getOneBookPerCategory(new OnBooksLoadedListener() {
-
-                    @Override
-                    public void onBooksLoaded(List<Book> bookList) {
-                        System.out.println(bookList.size());
-                        for (Book book : bookList) {
-                            System.out.println(book.getName());
-                        }
-                    }
-
-                    @Override
-                    public void onBooksLoadFailed(String errorMessage) {
-                        // Kitaplar alınırken hata oluştuğunda yapılacak işlemler
-                        Log.e("HomeFragment", "Kitaplar alınırken hata oluştu: " + errorMessage);
-                    }
-                });
-
-                System.out.println("bell icon sonu");
-            }
-        });
         LinearLayout childrenLayout= view.findViewById(R.id.childrenLayout);
         LinearLayout healthLayout= view.findViewById(R.id.healthLayout);
         LinearLayout improLayout= view.findViewById(R.id.improLayout);
@@ -234,20 +205,6 @@ public class HomeFragment extends Fragment {
         return view;
     }
 
-
-
-    // Örnek kitap verileri oluştur
-//    private List<Book> createBookList() {
-//        List<Book> bookList = new ArrayList<>();
-//
-//        bookList.add(new Book("1","War and Peace", 15.99,"xxxx", "Publisher 1", "Description 1", R.drawable.item3));
-//        bookList.add(new Book("2","The Little Prince", 10.99, "xxxx","Publisher 2", "Description 2", R.drawable.book1));
-//        bookList.add(new Book("3","Animal Farm", 12.49, "xxxx","Publisher 3", "Description 3", R.drawable.item7));
-//        bookList.add(new Book("4","1984", 9.99, "xxxx","Publisher 4", "Description 4", R.drawable.item6));
-//
-//        return bookList;
-//    }
-    // Kitap kartlarını dinamik olarak oluştur ve layouta ekle
     private void createBookCards(List<Book> bookList, GridLayout  bookContainer) {
         Log.e("FONKSŞYON", String.valueOf(bookList.size()));
 
@@ -263,51 +220,41 @@ public class HomeFragment extends Fragment {
                 Log.e("Listem", FavoriteBookManager.getFavoriteBooks().get(0).getName());
             }
 
-            ImageView favoriteIcon = bookCard.findViewById(R.id.favoriteIcon);  // Favori ikonu
+            ImageView favoriteIcon = bookCard.findViewById(R.id.favoriteIcon);  // Favori icon
 
-
-            // Favori ikonuna tıklama durumu
-            // Favori ikonuna tıklama durumu
+            //click favorite icon and add favoritelist
             favoriteIcon.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    handleFavoriteClick(book, favoriteIcon); // Favori ikonunu parametre olarak gönder
+                    handleFavoriteClick(book, favoriteIcon);
                 }
 
             });
 
 
-            // Assuming your image is in the "drawable" folder with the filename "your_image_name"
             int drawableResourceId = getResources().getIdentifier(book.getImage(), "drawable", requireContext().getPackageName());
-
-            // Set the image resource to the ImageView
             bookImage.setImageResource(drawableResourceId);
-
-
-//            bookImage.setImageResource(book.getImage());
 
             bookName.setText(book.getName());
             bookPrice.setText("$" + book.getPrice());
 
-            // Kitap kartına tıklandığında detay sayfasına geçiş yap
+            // navigation
             cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    // Kitap bilgilerini intent ile ProductDetailActivity'e aktar
+                    // navigation and pass data
                     Intent intent = new Intent(getActivity(), ProductDetailActivity.class);
                     intent.putExtra("selected_book", book);
                     startActivity(intent);
                 }
             });
 
-            // GridLayout.LayoutParams ekleyerek iki sütunlu düzenleme yapalım
             GridLayout.LayoutParams params = new GridLayout.LayoutParams();
             params.width = GridLayout.LayoutParams.WRAP_CONTENT;
             params.height = GridLayout.LayoutParams.WRAP_CONTENT;
-            params.rowSpec = GridLayout.spec(GridLayout.UNDEFINED, GridLayout.FILL, 1f); // Bir satır oluştur
-            params.columnSpec = GridLayout.spec(GridLayout.UNDEFINED, GridLayout.FILL, 1f); // İki sütunu eşit olarak doldur
-            // Margin değerlerini belirle
-            int marginInDp = 16; // İstediğiniz margin değeri
+            params.rowSpec = GridLayout.spec(GridLayout.UNDEFINED, GridLayout.FILL, 1f);
+            params.columnSpec = GridLayout.spec(GridLayout.UNDEFINED, GridLayout.FILL, 1f);
+            int marginInDp = 16;
             int marginInPx = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, marginInDp, getResources().getDisplayMetrics());
             params.setMargins(marginInPx, marginInPx, marginInPx, marginInPx);
             bookCard.setLayoutParams(params);
@@ -317,7 +264,6 @@ public class HomeFragment extends Fragment {
             for(int i = 0;i<FavoriteBookManager.getFavoriteBooks().size();i++){
 
                 if(FavoriteBookManager.getFavoriteBooks().get(i).getName().equals(bookName.getText().toString())){
-                    Log.e("if","if");
                     updateFavoriteIcon(favoriteIcon, true);
                 }
 
@@ -325,12 +271,11 @@ public class HomeFragment extends Fragment {
         }
     }
 
-    // Favori ikonuna tıklama durumu
     private void handleFavoriteClick(Book book, ImageView favoriteIcon) {
         String bookId = book.getId();
 
         if (FavoriteBookManager.isBookFavorited(bookId)) {
-            // Eğer kitap favorilerde ise, favorilerden çıkar
+            // if book is on favorite , remove book on favorite
             FavoriteBookManager.removeFavoriteBook(findFavoriteBookById(bookId));
             updateFavoriteIcon(favoriteIcon, false);
         } else {
@@ -340,8 +285,6 @@ public class HomeFragment extends Fragment {
             updateFavoriteIcon(favoriteIcon, true);
         }
     }
-
-    // Kitabın favori durumunu kontrol etmek için
     private FavoriteBook findFavoriteBookById(String bookId) {
         for (FavoriteBook favoriteBook : FavoriteBookManager.getFavoriteBooks()) {
             System.out.print(favoriteBook.getName());
@@ -352,13 +295,10 @@ public class HomeFragment extends Fragment {
         return null;
     }
 
-    // Favori ikonunu güncellemek için
     private void updateFavoriteIcon(ImageView favoriteIcon, boolean isFavorited) {
-        // Favori ikonunun rengini güncelle (favoriye eklenmişse, rengi değiştir)
         favoriteIcon.setImageResource(isFavorited ? R.drawable.favorite : R.drawable.unfavorite);
     }
 
-    // Favori kitap oluşturmak için
     private FavoriteBook createFavoriteBook(Book book) {
         return new FavoriteBook(book.getId(), book.getName(), book.getPrice(), book.getPublisher(), book.getDescription(), book.getImage());
     }

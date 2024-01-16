@@ -54,14 +54,14 @@ public class ProductAdapter extends BaseAdapter {
         ImageView imageView = convertView.findViewById(R.id.bookImage);
         TextView textView = convertView.findViewById(R.id.bookName);
         TextView priceTextView = convertView.findViewById(R.id.bookPrice);
-        ImageView favoriteIcon = convertView.findViewById(R.id.favoriteIcon);  // Favori ikonu
+        ImageView favoriteIcon = convertView.findViewById(R.id.favoriteIcon);
 
         Book book = bookList.get(position);
 
         int drawableResourceId = context.getResources().getIdentifier(book.getImage(), "drawable", context.getPackageName());
         imageView.setImageResource(drawableResourceId);
         textView.setText(book.getName());
-        priceTextView.setText("$"+book.getPrice()); // Assuming Book has a method getPrice()
+        priceTextView.setText("$"+book.getPrice());
 
         convertView.setOnClickListener(v -> {
             Intent intent = new Intent(context, ProductDetailActivity.class);
@@ -70,13 +70,10 @@ public class ProductAdapter extends BaseAdapter {
         });
 
 
-
-        // Favori ikonuna tıklama durumu
-        // Favori ikonuna tıklama durumu
         favoriteIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                handleFavoriteClick(book, favoriteIcon); // Favori ikonunu parametre olarak gönder
+                handleFavoriteClick(book, favoriteIcon);
             }
 
         });
@@ -94,7 +91,6 @@ public class ProductAdapter extends BaseAdapter {
         String bookId = book.getId();
 
         if (FavoriteBookManager.isBookFavorited(bookId)) {
-            // Eğer kitap favorilerde ise, favorilerden çıkar
             FavoriteBookManager.removeFavoriteBook(findFavoriteBookById(bookId));
             updateFavoriteIcon(favoriteIcon, false);
         } else {
@@ -104,7 +100,6 @@ public class ProductAdapter extends BaseAdapter {
             updateFavoriteIcon(favoriteIcon, true);
         }
     }
-    // Kitabın favori durumunu kontrol etmek için
     private FavoriteBook findFavoriteBookById(String bookId) {
         for (FavoriteBook favoriteBook : FavoriteBookManager.getFavoriteBooks()) {
             System.out.print(favoriteBook.getName());
@@ -115,13 +110,10 @@ public class ProductAdapter extends BaseAdapter {
         return null;
     }
 
-    // Favori ikonunu güncellemek için
     private void updateFavoriteIcon(ImageView favoriteIcon, boolean isFavorited) {
-        // Favori ikonunun rengini güncelle (favoriye eklenmişse, rengi değiştir)
         favoriteIcon.setImageResource(isFavorited ? R.drawable.favorite : R.drawable.unfavorite);
     }
 
-    // Favori kitap oluşturmak için
     private FavoriteBook createFavoriteBook(Book book) {
         return new FavoriteBook(book.getId(), book.getName(), book.getPrice(), book.getPublisher(), book.getDescription(), book.getImage());
     }

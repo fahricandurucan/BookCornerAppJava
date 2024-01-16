@@ -25,14 +25,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-// CartAdapter.java
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder> {
 
     private List<Book> cartItems;
 
     private Context context; // Context değişkeni
-
-    private  List<Book> tempList;
 
     CartFragment cartFragment;
 
@@ -53,8 +50,6 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
     public void onBindViewHolder(@NonNull CartViewHolder holder, int position) {
         Book cartItem = cartItems.get(position);
 
-//        holder.cartItemImageView.setImageResource(cartItem.getImage());
-        // Assuming your image is in the "drawable" folder with the filename "your_image_name"
         int drawableResourceId = context.getResources().getIdentifier(cartItem.getImage(), "drawable", context.getPackageName());
         holder.cartItemImageView.setImageResource(drawableResourceId);
 
@@ -72,7 +67,6 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
                 SharedPreferencesHelper.removeBookFromCart(v.getContext(), cartItem);
                 Log.d("CartAdapter", "Delete icon clicked for book: " + cartItem.getName());
                 Toast.makeText(v.getContext(), cartItem.getName()+" removed your cart", Toast.LENGTH_SHORT).show();
-
                 goToHomeFragment();
             }
 
@@ -99,8 +93,6 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
 
         public CartViewHolder(@NonNull View itemView) {
             super(itemView);
-
-            // Kart öğelerini tanımla
             cartItemDeleteIcon=itemView.findViewById(R.id.deleteIcon);
             cartItemImageView = itemView.findViewById(R.id.cartItemImageView);
             cartItemNameTextView = itemView.findViewById(R.id.cartItemNameTextView);
@@ -111,22 +103,18 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
     }
 
     private void goToHomeFragment() {
-        // Belirli bir süre beklemek için Handler kullanımı
-        // WaitingFragment'i göster
         cartFragment.requireActivity().getSupportFragmentManager().beginTransaction()
-                .replace(R.id.frameLayout, new WaitingCartFragment(R.drawable.delete)) // fragment_container yerine uygun container ID'sini kullanın
+                .replace(R.id.frameLayout, new WaitingCartFragment(R.drawable.delete))
                 .addToBackStack(null)
                 .commit();
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                // Burada belirli bir süre bekledikten sonra yapılacak işlemleri ekleyebilirsiniz
-                // Örneğin, başka bir işlemi gerçekleştirebilir veya ekranı güncelleyebilirsiniz
                 cartFragment.requireActivity().getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.frameLayout, new CartFragment()) // fragment_container yerine uygun container ID'sini kullanın
+                        .replace(R.id.frameLayout, new CartFragment())
                         .commit();
             }
-        }, 3000); // 2000 milisaniye (2 saniye) bekleyecek şekilde ayarlandı, ihtiyaca göre değiştirilebilir
+        }, 3000);
 
     }
 

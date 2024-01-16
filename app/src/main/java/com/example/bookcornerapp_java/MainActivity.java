@@ -1,69 +1,3 @@
-//package com.example.bookcornerapp_java;
-//
-//import androidx.appcompat.app.AppCompatActivity;
-//
-//import android.content.Intent;
-//import android.os.Bundle;
-//
-//import com.google.android.material.bottomnavigation.BottomNavigationView;
-//
-//
-//public class MainActivity extends AppCompatActivity {
-//
-//    BottomNavigationView bottomNavigationView;
-//
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_main);
-//
-//        bottomNavigationView = findViewById(R.id.bottomNavigationView);
-//
-//
-//        bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
-//            Intent intent;
-//
-//            switch (item.getItemId()){
-//
-//                case R.id.home:
-//                    intent=new Intent(this,HomeFragment.class);
-//                    break;
-//                case R.id.favorite:
-//                    intent=new Intent(this,FavoriteFragment.class);
-//                    break;
-//                case R.id.cart:
-//                    intent=new Intent(this,CartFragment.class);
-//                    break;
-//                case R.id.profile:
-//                    intent=new Intent(this,ProfileFragment.class);
-//                    break;
-//                default:
-//                    intent= new Intent(this,HomeActivity.class);
-//            }
-//            startActivity(intent);
-//
-//
-//            return true;
-//
-//
-//        });
-//
-//
-//
-//
-//
-//    }
-//
-//
-//}
-
-
-
-
-
-
-
-
 package com.example.bookcornerapp_java;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -82,7 +16,6 @@ import com.google.firebase.firestore.FirebaseFirestore;
 public class MainActivity extends AppCompatActivity {
 
     ActivityMainBinding binding;
-    FirebaseFirestore firestore;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
